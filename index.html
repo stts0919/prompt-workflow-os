@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>prompt-workflow-os — 100 ChatGPT Prompt Workflows</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, "PingFang TC", "Microsoft JhengHei", sans-serif; max-width: 760px; margin: 2.5rem auto; padding: 0 1.25rem; color: #1a1a1a; line-height: 1.65; }
+    h1 { font-size: 2.1rem; margin-bottom: 0.5rem; }
+    h2 { font-size: 1.4rem; margin-top: 2.2rem; border-bottom: 1px solid #e5e5e5; padding-bottom: 0.3rem; }
+    h3 { font-size: 1.15rem; margin-top: 1.5rem; }
+    blockquote { border-left: 4px solid #d0d7de; padding: 0.4rem 1rem; color: #57606a; background: #f6f8fa; margin: 1rem 0; }
+    table { border-collapse: collapse; margin: 1rem 0; }
+    th, td { border: 1px solid #d0d7de; padding: 0.45rem 0.85rem; text-align: left; }
+    th { background: #f6f8fa; }
+    a { color: #0969da; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    code { background: #f6f8fa; padding: 0.1rem 0.35rem; border-radius: 3px; font-size: 0.9em; }
+    ul { padding-left: 1.4rem; }
+    li { margin: 0.25rem 0; }
+    hr { border: 0; border-top: 1px solid #e5e5e5; margin: 2rem 0; }
+    .meta { color: #57606a; font-size: 0.95rem; }
+  </style>
+</head>
+<body>
+  <h1>prompt-workflow-os</h1>
+  <blockquote>
+    100 ChatGPT Prompt Workflows.<br>
+    Describe what you want. The AI finds the right workflow, asks only what matters, and helps you complete the task.
+  </blockquote>
+
+  <p>This repository is a Markdown-first, AI-routable library of <strong>100 prompt workflows</strong> plus a router, playbooks, indexes, shared rules, templates, and evaluation cases.</p>
+
+  <h2>Get started</h2>
+  <ol>
+    <li><strong>Open this repo with any AI that can read files</strong>, or paste the files you need.</li>
+    <li><strong>Tell the AI to read <a href="START.md">START.md</a>.</strong></li>
+    <li><strong>Describe what you want in natural language.</strong> Examples:
+      <ul>
+        <li><em>「I want to validate an online course idea.」</em></li>
+        <li><em>「I have a messy meeting transcript.」</em></li>
+        <li><em>「Help me understand my competitors.」</em></li>
+        <li><em>「I have code that is failing.」</em></li>
+      </ul>
+    </li>
+    <li><strong>The AI detects your language</strong>, asks 1–2 high-value questions, picks the right workflow, and executes.</li>
+  </ol>
+  <p>The user never has to memorize a workflow name.</p>
+
+  <h2>Three interaction modes</h2>
+  <ul>
+    <li><strong>Guide me</strong> — step-by-step discovery with confirmation before each major move.</li>
+    <li><strong>Quick mode</strong> — execute with labeled assumptions when the risk is low.</li>
+    <li><strong>Recommend</strong> — propose a workflow or workflow chain before starting.</li>
+  </ul>
+
+  <h2>Five categories</h2>
+  <table>
+    <thead>
+      <tr><th>Category</th><th>Count</th><th>What it covers</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><a href="indexes/01-by-goal.md">Content creation &amp; communication</a></td><td align="right">29</td><td>articles, posts, videos, newsletters, stories, presentations, rewriting, localization, quality review</td></tr>
+      <tr><td><a href="indexes/01-by-goal.md">Business, marketing &amp; customer growth</a></td><td align="right">24</td><td>customers, competitors, positioning, validation, pricing, campaigns, sales, retention, strategic choices</td></tr>
+      <tr><td><a href="indexes/01-by-goal.md">Research, analysis &amp; decision making</a></td><td align="right">18</td><td>source evaluation, summaries, fact checks, evidence, scenarios, decisions</td></tr>
+      <tr><td><a href="indexes/01-by-goal.md">Planning, operations &amp; self-management</a></td><td align="right">17</td><td>tasks, projects, meetings, SOPs, documentation, automation, learning, self-review</td></tr>
+      <tr><td><a href="indexes/01-by-goal.md">AI, code &amp; data</a></td><td align="right">12</td><td>prompts, agents, code, debugging, data, APIs, schemas, system design</td></tr>
+      <tr><th>Total</th><th align="right">100</th><th></th></tr>
+    </tbody>
+  </table>
+
+  <h2>Browse</h2>
+  <ul>
+    <li><a href="indexes/01-by-goal.md">By goal</a> — when you know the outcome.</li>
+    <li><a href="indexes/02-by-problem.md">By problem</a> — when you have a known pain.</li>
+    <li><a href="indexes/03-by-input.md">By input</a> — when you already have material.</li>
+    <li><a href="indexes/04-by-output.md">By output</a> — when you know the artifact you need.</li>
+    <li><a href="indexes/05-all-100-workflows.md">All 100 workflows</a> — the complete list.</li>
+  </ul>
+
+  <h2>How the router works</h2>
+  <p>State flow: <strong>DISCOVER → CLARIFY → SELECT → CONFIRM → EXECUTE → REVIEW → NEXT_STEP</strong></p>
+  <p>The router classifies each request by primary goal, current stage, input type, desired output, complexity, urgency, verification need, current-information need, and experience level. It keeps a compact context ledger and asks at most one or two high-value questions per turn. If sufficient context already exists, it executes immediately.</p>
+
+  <h2>Localization</h2>
+  <p>This repo includes a <a href="shared/ZH_TW_LOCALIZATION_AND_WRITING_RULES.md">Taiwan Traditional Chinese (<code>zh-TW</code>) localization layer</a> with:</p>
+  <ul>
+    <li>a 156-entry context-sensitive term glossary,</li>
+    <li>15 style profiles (Threads, Instagram, LinkedIn, Email, Sales, Landing, Article, Research, Tech, SOP, Agent spec, Support, etc.),</li>
+    <li>a two-layer quality checklist,</li>
+    <li>65 test cases.</li>
+  </ul>
+  <p>Editorial rewriting improves clarity, naturalness, and tone. It does not prove human authorship, does not remove watermarks, and does not evade AI detection.</p>
+  <p>Future locale packs (<a href="shared/locales/FUTURE_LOCALE_EXPANSION_PLAN.md"><code>zh-CN</code>, <code>yue-Hant-HK</code>, <code>en-US</code>, <code>en-GB</code>, <code>ja-JP</code>, <code>ko-KR</code>, <code>id-ID</code>, <code>vi-VN</code></a>) plug into the same architecture.</p>
+
+  <h2>For contributors</h2>
+  <ul>
+    <li>Read <a href="AGENTS.md">AGENTS.md</a> for the authoring rules.</li>
+    <li>Add a workflow following <a href="templates/WORKFLOW_TEMPLATE.md">templates/WORKFLOW_TEMPLATE.md</a>.</li>
+    <li>Add a playbook following <a href="templates/PLAYBOOK_TEMPLATE.md">templates/PLAYBOOK_TEMPLATE.md</a>.</li>
+    <li>Add an evaluation case following <a href="templates/EVALUATION_CASE_TEMPLATE.md">templates/EVALUATION_CASE_TEMPLATE.md</a>.</li>
+    <li>Run <code>bash tests/validate.sh</code> before any commit.</li>
+  </ul>
+
+  <h2>License</h2>
+  <p>Released under the MIT License — see <a href="LICENSE">LICENSE</a>.</p>
+</body>
+</html>
