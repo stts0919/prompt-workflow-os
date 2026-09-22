@@ -42,3 +42,5 @@ Versioning follows [Semantic Versioning](https://semver.org/).
 
 - `tests/_evaluations/` switched from fully gitignored to "track the harness, ignore only the recorded JSONL". Recorded model outputs may contain private / sensitive content and must not be committed.
 - `tests/README.md` case-count table refreshed (15 router / 11 language / 11 workflow) and a new "Operator-driven evaluation harness" section added pointing at the harness.
+- 29 high-traffic Taiwan workflows (11 content, 12 business, 6 research) gain explicit `localization:` frontmatter blocks via `LOCALIZATION_OVERRIDES` in `scripts/generate_workflows.py`. Other workflows inherit the category default documented in `templates/WORKFLOW_TEMPLATE.md`. `scripts/apply_tw_localization.py` is now a verifier that the CI runs to prevent drift between the override map and the rendered frontmatter.
+- `.github/workflows/validate.yml` runs the new `apply_tw_localization.py` verifier on every push and PR.

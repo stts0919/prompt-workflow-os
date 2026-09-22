@@ -38,6 +38,14 @@ mode_support:
 language_support:
   input: auto-detect
   output: mirror-user-language
+localization:
+  supported_locales:
+    - en
+    - zh-TW
+  default_style_profile: zh-tw-email-professional
+  locale_style_profile_overrides:
+    zh-TW: zh-tw-sales-clear
+  editing_intensity: standard
 handoff:
   - key: context
     description: "summary of upstream context"

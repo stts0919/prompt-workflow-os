@@ -19,6 +19,52 @@ CATEGORY_DIR = {
     "technical": "05-technical",
 }
 
+
+# --- Taiwan Traditional Chinese localization overrides -----------------------
+# Workflows that are high-traffic in Taiwan get an explicit `localization:` block
+# in their frontmatter. Other workflows fall back to the category default the
+# router infers from `templates/WORKFLOW_TEMPLATE.md`.
+#
+# Schema per id:
+#   default_style_profile: zh-TW profile name (see shared/ZH_TW_STYLE_PROFILES.md)
+#   locale_override:       None to use default, or a profile name to override
+#                          when the deliverable's target market is Taiwan
+#   editing_intensity:     one of none / light / standard / strict_precision
+LOCALIZATION_OVERRIDES: dict[str, dict] = {
+    # ---- content (11) — local social / content creation ----
+    "012": {"default_style_profile": "zh-tw-friendly-professional", "locale_override": None, "editing_intensity": "standard"},
+    "013": {"default_style_profile": "zh-tw-threads-insightful",    "locale_override": None, "editing_intensity": "standard"},
+    "014": {"default_style_profile": "zh-tw-instagram-casual",       "locale_override": None, "editing_intensity": "standard"},
+    "015": {"default_style_profile": "zh-tw-friendly-professional", "locale_override": None, "editing_intensity": "standard"},
+    "018": {"default_style_profile": "zh-tw-conversational-help",    "locale_override": None, "editing_intensity": "standard"},
+    "022": {"default_style_profile": "zh-tw-customer-support",       "locale_override": None, "editing_intensity": "standard"},
+    "023": {"default_style_profile": "zh-tw-friendly-professional", "locale_override": None, "editing_intensity": "standard"},
+    "025": {"default_style_profile": "zh-tw-long-form-article",      "locale_override": None, "editing_intensity": "standard"},
+    "026": {"default_style_profile": "zh-tw-conversational-help",    "locale_override": None, "editing_intensity": "standard"},
+    "027": {"default_style_profile": "zh-tw-friendly-professional", "locale_override": None, "editing_intensity": "light"},
+    "028": {"default_style_profile": "zh-tw-friendly-professional", "locale_override": None, "editing_intensity": "standard"},
+    # ---- business (12) — local business / marketing / sales ----
+    "031": {"default_style_profile": "zh-tw-business-consulting",    "locale_override": None, "editing_intensity": "standard"},
+    "032": {"default_style_profile": "zh-tw-conversational-help",    "locale_override": None, "editing_intensity": "standard"},
+    "035": {"default_style_profile": "zh-tw-business-consulting",    "locale_override": None, "editing_intensity": "standard"},
+    "036": {"default_style_profile": "zh-tw-landing-page-clear",     "locale_override": None, "editing_intensity": "standard"},
+    "037": {"default_style_profile": "zh-tw-sales-clear",            "locale_override": None, "editing_intensity": "standard"},
+    "042": {"default_style_profile": "zh-tw-business-consulting",    "locale_override": None, "editing_intensity": "standard"},
+    "043": {"default_style_profile": "zh-tw-landing-page-clear",     "locale_override": "zh-tw-sales-clear", "editing_intensity": "standard"},
+    "045": {"default_style_profile": "zh-tw-business-consulting",    "locale_override": None, "editing_intensity": "standard"},
+    "046": {"default_style_profile": "zh-tw-email-professional",     "locale_override": None, "editing_intensity": "standard"},
+    "047": {"default_style_profile": "zh-tw-email-professional",     "locale_override": "zh-tw-sales-clear", "editing_intensity": "standard"},
+    "048": {"default_style_profile": "zh-tw-sales-clear",            "locale_override": None, "editing_intensity": "standard"},
+    "052": {"default_style_profile": "zh-tw-business-consulting",    "locale_override": None, "editing_intensity": "strict_precision"},
+    # ---- research (6) — local research / reporting / decision ----
+    "055": {"default_style_profile": "zh-tw-research-precise",       "locale_override": None, "editing_intensity": "standard"},
+    "057": {"default_style_profile": "zh-tw-research-precise",       "locale_override": None, "editing_intensity": "standard"},
+    "064": {"default_style_profile": "zh-tw-research-precise",       "locale_override": None, "editing_intensity": "strict_precision"},
+    "065": {"default_style_profile": "zh-tw-research-precise",       "locale_override": None, "editing_intensity": "strict_precision"},
+    "069": {"default_style_profile": "zh-tw-business-consulting",    "locale_override": None, "editing_intensity": "strict_precision"},
+    "070": {"default_style_profile": "zh-tw-business-consulting",    "locale_override": None, "editing_intensity": "strict_precision"},
+}
+
 # --- Curated content for all 100 workflows ----------------------------------
 # Each entry: (slug, title, category, aliases, triggers, input_types, output_types,
 #              requires, produces, related, playbooks, mode_support, purpose,
@@ -5382,8 +5428,44 @@ def render_frontmatter(entry):
         + fmt_list("playbooks")
         + fmt_list("mode_support")
         + "language_support:\n  input: auto-detect\n  output: mirror-user-language\n"
+        + fmt_localization(entry["id"])
         + fmt_handoff()
         + "---\n"
+    )
+
+
+def fmt_localization(idn: str) -> str:
+    """Render the `localization:` block from LOCALIZATION_OVERRIDES.
+
+    Workflows not in the override map produce an empty string — the router
+    falls back to the category default documented in
+    `templates/WORKFLOW_TEMPLATE.md`.
+    """
+    spec = LOCALIZATION_OVERRIDES.get(idn)
+    if not spec:
+        return ""
+
+    override = spec.get("locale_override")
+    if override:
+        overrides_block = (
+            "  locale_style_profile_overrides:\n"
+            f"    zh-TW: {override}\n"
+        )
+    else:
+        # Empty value — router falls back to category default.
+        overrides_block = (
+            "  locale_style_profile_overrides:\n"
+            "    zh-TW:\n"
+        )
+
+    return (
+        "localization:\n"
+        "  supported_locales:\n"
+        "    - en\n"
+        "    - zh-TW\n"
+        f"  default_style_profile: {spec['default_style_profile']}\n"
+        f"{overrides_block}"
+        f"  editing_intensity: {spec['editing_intensity']}\n"
     )
 
 
