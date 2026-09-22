@@ -37,6 +37,7 @@ Versioning follows [Semantic Versioning](https://semver.org/).
 - AI evaluation harness under `tests/_evaluations/`: `harness.py` with `build-prompt` / `run-batch` / `compare` subcommands, `prompt_builder.py` (splits multi-case files on `## N.` headings), `schema.py` (`EvalResult` / `RubricScore` dataclasses), `rubric.md` (5-dimension rubric, acceptance ≥ 4.0 average and no dimension < 3), `operators/manual.md` (paste-into-UI protocol) and `operators/api.md` (SDK pattern). Recorded JSONL files stay operator-local.
 - Cross-language Humanizer references in `shared/locales/research/HUMANIZER_REFERENCES.md` with timestamps and per-locale recency hints (en / zh-TW / zh-CN / ko / ru / multilingual / en-editorial). The corresponding zh-TW writing rules cite `kevintsai1202/Humanizer-zh-TW` as editorial inspiration only.
 - Three new locales documented in `shared/locales/FUTURE_LOCALE_EXPANSION_PLAN.md`: zh-CN, yue-Hant-HK, en-US, en-GB, ja-JP, ko-KR, id-ID, vi-VN. zh-TW remains the reference implementation.
+- `README.md` CI / release / license badges at the top, plus `CONTRIBUTING.md` covering three contribution paths (workflow / locale / router-shared-tests), CI failure modes, and the version-bump convention.
 
 ### Changed
 
