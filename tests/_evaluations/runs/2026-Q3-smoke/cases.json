@@ -1,0 +1,91 @@
+{
+  "_comment": "Smoke eval round 2026-Q3-smoke: 9 representative cases, one per locale pack. Edit this list to add / swap cases. Run `python3 build.py` to regenerate stub JSONL files for all listed models.",
+  "models": [
+    "gpt-5.6-luna",
+    "claude-opus-5",
+    "gemini-3.8-flash"
+  ],
+  "cases": [
+    {
+      "id": "zh-TW-01",
+      "rationale": "Reference locale. Natural Taiwan conversation that exercises the standard zh-TW layer.",
+      "case_file": "tests/language-cases/zh-tw-localization-cases.md",
+      "case_index": 0,
+      "locale": "zh-TW",
+      "profile": "zh-tw-friendly-professional",
+      "notes": "Baseline. If this fails, the entire zh-TW layer is broken."
+    },
+    {
+      "id": "zh-CN-04",
+      "rationale": "Mainland 小红书 lifestyle channel — exercises zh-cn style profile + glossary.",
+      "case_file": "tests/language-cases/zh-cn-localization-cases.md",
+      "case_index": 3,
+      "locale": "zh-CN",
+      "profile": "zh-cn-xiaohongshu-lifestyle",
+      "notes": "First zh-CN case in the v1.1.0 expansion. Channel-specific style profile."
+    },
+    {
+      "id": "yue-Hant-HK-01",
+      "rationale": "HK WhatsApp colloquial — Cantonese 口語 handling.",
+      "case_file": "tests/language-cases/locale-coverage.md",
+      "case_index": 0,
+      "locale": "yue-Hant-HK",
+      "profile": "yue-hk-chat-casual",
+      "notes": "First v1.2.0 new locale. Verifies the LANGUAGE_FILES wiring."
+    },
+    {
+      "id": "en-US-04",
+      "rationale": "US LinkedIn post — exercises en-us style profile + spelling.",
+      "case_file": "tests/language-cases/locale-coverage.md",
+      "case_index": 3,
+      "locale": "en-US",
+      "profile": "en-us-linkedin-professional",
+      "notes": "Spelling leak check (US vs UK)."
+    },
+    {
+      "id": "en-GB-06",
+      "rationale": "UK formal letter — strict_precision legal register.",
+      "case_file": "tests/language-cases/locale-coverage.md",
+      "case_index": 5,
+      "locale": "en-GB",
+      "profile": "en-gb-formal-letter",
+      "notes": "Router auto-escalates to strict_precision for legal context."
+    },
+    {
+      "id": "ja-JP-08",
+      "rationale": "Japanese formal email (keigo) — exercises sonkeigo / kenjōgo / teineigo.",
+      "case_file": "tests/language-cases/locale-coverage.md",
+      "case_index": 7,
+      "locale": "ja-JP",
+      "profile": "ja-jp-email-formal",
+      "notes": "Keigo correctness is the highest-leverage Japanese signal."
+    },
+    {
+      "id": "ko-KR-10",
+      "rationale": "Korean formal business email — 합쇼체 register.",
+      "case_file": "tests/language-cases/locale-coverage.md",
+      "case_index": 9,
+      "locale": "ko-KR",
+      "profile": "ko-kr-email-formal",
+      "notes": "Register leak (합쇼체 vs 해요체 vs 반말체)."
+    },
+    {
+      "id": "id-ID-12",
+      "rationale": "Indonesian WhatsApp casual — informal register with emoji.",
+      "case_file": "tests/language-cases/locale-coverage.md",
+      "case_index": 11,
+      "locale": "id-ID",
+      "profile": "id-id-whatsapp-casual",
+      "notes": "Casual vs formal `kamu`/`Anda` register check."
+    },
+    {
+      "id": "vi-VN-14",
+      "rationale": "Vietnamese Zalo casual — diacritics + casual particles.",
+      "case_file": "tests/language-cases/locale-coverage.md",
+      "case_index": 13,
+      "locale": "vi-VN",
+      "profile": "vi-vn-zalo-casual",
+      "notes": "Missing diacritics is the most common vi-VN failure mode."
+    }
+  ]
+}
