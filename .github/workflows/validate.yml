@@ -1,0 +1,138 @@
+name: validate
+
+# Block broken commits from being merged.
+# - Runs on every push to main and every PR targeting main.
+# - Runs `bash tests/validate.sh` which:
+#     1. Regenerates workflow files from `scripts/generate_workflows.py`
+#     2. Regenerates indexes from `scripts/generate_indexes.py`
+#     3. Runs structural validation from `scripts/validate.py`
+# - Also lints Python syntax as an early-fail signal.
+# - Posts a PR comment summarizing the run when triggered by a PR.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+# Cancel in-flight runs on the same ref when a new commit lands.
+concurrency:
+  group: validate-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pull-requests: write   # only for the PR comment job
+
+jobs:
+  validate:
+    name: Structural validation
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Cache generated artifacts
+        uses: actions/cache@v4
+        with:
+          path: |
+            workflows/
+            indexes/
+          key: validate-generated-${{ github.sha }}
+          restore-keys: |
+            validate-generated-
+
+      - name: Regenerate workflows from canonical content map
+        run: python3 scripts/generate_workflows.py
+
+      - name: Regenerate indexes
+        run: python3 scripts/generate_indexes.py
+
+      - name: Run structural validation
+        run: bash tests/validate.sh
+
+      - name: Python syntax sanity check
+        run: |
+          python3 -c "import ast, sys
+          for p in ['scripts/generate_workflows.py','scripts/generate_indexes.py','scripts/validate.py']:
+              ast.parse(open(p, encoding='utf-8').read())
+              print('ok:', p)"
+
+  pr-comment:
+    name: PR comment
+    runs-on: ubuntu-latest
+    needs: validate
+    if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Re-run validation to get a fresh result
+        run: |
+          echo "VALIDATION_RESULT=$([ "$(bash tests/validate.sh >/dev/null 2>&1; echo $?)" = "0" ] && echo PASS || echo FAIL)" >> "$GITHUB_ENV"
+          echo "WORKFLOW_COUNT=$(ls workflows/0*-*/*.md 2>/dev/null | wc -l | tr -d ' ')" >> "$GITHUB_ENV"
+
+      - name: Find PR comment
+        uses: peter-evans/find-comment@v3
+        id: find-comment
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          comment-author: "github-actions[bot]"
+          comment-author-contains: "github-actions[bot]"
+
+      - name: Upsert PR comment
+        uses: peter-evans/create-or-update-comment@v4
+        with:
+          comment-id: ${{ steps.find-comment.outputs.comment-id }}
+          issue-number: ${{ github.event.pull_request.number }}
+          body: |
+            <!-- prompt-workflow-os validate -->
+            **Validation result:** `${{ env.VALIDATION_RESULT }}`
+            **Workflow files tracked:** `${{ env.WORKFLOW_COUNT }}` (expected: 100)
+            Re-run triggered by push to this PR. See the workflow logs for details.
+
+  release-readiness:
+    name: Release readiness
+    runs-on: ubuntu-latest
+    needs: validate
+    # Only flag release-readiness issues on pushes to main, not on PRs.
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Verify v1.0.0 tag points at HEAD
+        run: |
+          set -euo pipefail
+          TAG_SHA=$(git rev-parse v1.0.0)
+          HEAD_SHA=$(git rev-parse HEAD)
+          echo "v1.0.0 → ${TAG_SHA}"
+          echo "HEAD   → ${HEAD_SHA}"
+          if [ "$TAG_SHA" != "$HEAD_SHA" ]; then
+            echo "::warning::v1.0.0 tag is not on HEAD. Consider cutting a new tag (e.g. v1.0.1, v1.1.0) once validation passes." >&2
+          else
+            echo "v1.0.0 is on HEAD."
+          fi
+
+      - name: Check author identity
+        run: |
+          AUTHOR_NAME=$(git log -1 --format='%an')
+          AUTHOR_EMAIL=$(git log -1 --format='%ae')
+          echo "Latest commit author: $AUTHOR_NAME <$AUTHOR_EMAIL>"
+          if [[ "$AUTHOR_EMAIL" == *"@example.com" || "$AUTHOR_NAME" == "Your Name" ]]; then
+            echo "::warning::Latest commit uses a placeholder author identity." >&2
+          fi
