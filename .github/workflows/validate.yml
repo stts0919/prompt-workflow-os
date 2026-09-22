@@ -59,7 +59,7 @@ jobs:
         run: bash tests/validate.sh
 
       - name: Verify zh-TW localization blocks
-        run: python3 scripts/apply_tw_localization.py
+        run: python3 scripts/apply_localization.py
 
       - name: Python syntax sanity check
         run: |

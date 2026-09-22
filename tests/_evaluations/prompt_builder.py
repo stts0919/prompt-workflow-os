@@ -53,15 +53,24 @@ def read(path: str) -> str:
 def parse_case(text: str) -> dict[str, str]:
     """Parse the per-case markdown fields into a dict.
 
-    The case files use a one-line-per-field pattern:
+    Two layouts are supported. The primary one uses a one-line-per-field pattern:
 
         - **User request:** ...
         - **Requested output language:** ...
         - ...
 
-    We extract both the label and the value. Values can span multiple lines if
-    the writer used a multi-line blockquote, which is rare; we keep the simple
-    case for now.
+    Older single-case files (under `tests/workflow-cases/01-*.md` and
+    `tests/router-cases/01-*.md`) use H2 sections instead:
+
+        ## Setup
+        - Mode: `quick`.
+
+        ## Input
+        - Topic: SaaS pricing
+
+    We fall back to the H2-section parser when the bullet pattern finds no
+    fields. Either way, the resulting dict feeds the prompt assembler the same
+    way.
     """
     fields: dict[str, str] = {}
     for line in text.splitlines():
@@ -71,6 +80,40 @@ def parse_case(text: str) -> dict[str, str]:
         key = m.group(1).strip().lower().replace(" ", "_")
         value = m.group(2).strip()
         fields[key] = value
+    if not fields:
+        fields = parse_freeform_case(text)
+    return fields
+
+
+def parse_freeform_case(text: str) -> dict[str, str]:
+    """Parse a single-case file written as H2 sections.
+
+    Each `## Section Name` becomes a snake_case key; its body (prose or list
+    items, or both) becomes the value. Used as a fallback when the bullet
+    pattern finds nothing.
+    """
+    fields: dict[str, str] = {}
+    current_key: str | None = None
+    current_lines: list[str] = []
+
+    def flush() -> None:
+        if current_key is None:
+            return
+        body = "\n".join(current_lines).strip()
+        if body:
+            fields[current_key] = body
+
+    for line in text.splitlines():
+        m = re.match(r"^##\s+(.+)$", line)
+        if m:
+            flush()
+            raw = m.group(1).strip().lower()
+            current_key = re.sub(r"[^a-z0-9]+", "_", raw).strip("_")
+            current_lines = []
+        else:
+            if current_key is not None:
+                current_lines.append(line)
+    flush()
     return fields
 
 

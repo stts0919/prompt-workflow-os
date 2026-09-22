@@ -241,7 +241,7 @@ Run on every push / PR via
 
 - `scripts/validate.py` checks workflow counts, IDs, slugs, required
   sections, AI-spec keys, and link resolution.
-- `scripts/apply_tw_localization.py` (yes, the name is a leftover from
+- `scripts/apply_localization.py` (yes, the name is a leftover from
   the Taiwan-only origin; it now covers both zh-TW and zh-CN entries)
   verifies every workflow with a `localization:` block matches the
   override map.

@@ -35,7 +35,7 @@ next validator run.
 - **Adding a `localization:` block**: see
   [`LOCALIZATION_OVERRIDES`](scripts/generate_workflows.py) — only workflows
   in this dict get explicit `default_style_profile`, `locale_override`, and
-  `editing_intensity`. `scripts/apply_tw_localization.py` is the verifier.
+  `editing_intensity`. `scripts/apply_localization.py` is the verifier.
 
 ### 2. Add or change a locale
 

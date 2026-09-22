@@ -154,7 +154,12 @@ def check_links(root):
         for label, target in re.findall(r"\[([^\]]+)\]\(([^)]+)\)", text):
             if target.startswith(("http", "#", "mailto:")):
                 continue
-            target_path = (p.parent / target).resolve()
+            # Strip `#fragment` so links to anchors resolve correctly.
+            target_no_fragment = target.split("#", 1)[0]
+            if not target_no_fragment:
+                # Pure anchor link like `(#some-section)` — skip.
+                continue
+            target_path = (p.parent / target_no_fragment).resolve()
             if not target_path.exists():
                 errors.append(f"{p.relative_to(ROOT)}: link '{target}' (from '{label}') is missing")
     return errors
