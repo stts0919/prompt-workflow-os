@@ -63,6 +63,25 @@ LOCALIZATION_OVERRIDES: dict[str, dict] = {
     "065": {"default_style_profile": "zh-tw-research-precise",       "locale_override": None, "editing_intensity": "strict_precision"},
     "069": {"default_style_profile": "zh-tw-business-consulting",    "locale_override": None, "editing_intensity": "strict_precision"},
     "070": {"default_style_profile": "zh-tw-business-consulting",    "locale_override": None, "editing_intensity": "strict_precision"},
+    # ---- workflow (7) — process / SOP / planning ----
+    # These workflows ship BOTH the Taiwan zh-TW reference and a zh-CN Mainland
+    # profile, since both audiences use the same operational categories
+    # (SOPs, plans, handoffs). default_style_profile points at the zh-TW
+    # canonical; locale_style_profile_overrides.zh-TW is null (use category
+    # default) and zh-CN override points at zh-cn-friendly-professional.
+    "072": {"default_style_profile": "zh-cn-friendly-professional", "locale_override": None, "editing_intensity": "standard"},
+    "074": {"default_style_profile": "zh-cn-friendly-professional", "locale_override": None, "editing_intensity": "standard"},
+    "076": {"default_style_profile": "zh-cn-friendly-professional", "locale_override": None, "editing_intensity": "standard"},
+    "080": {"default_style_profile": "zh-cn-friendly-professional", "locale_override": None, "editing_intensity": "standard"},
+    "081": {"default_style_profile": "zh-cn-friendly-professional", "locale_override": None, "editing_intensity": "standard"},
+    "086": {"default_style_profile": "zh-cn-friendly-professional", "locale_override": None, "editing_intensity": "standard"},
+    "088": {"default_style_profile": "zh-cn-friendly-professional", "locale_override": None, "editing_intensity": "standard"},
+    # ---- technical (5) — code / data / agent spec ----
+    "089": {"default_style_profile": "zh-cn-friendly-professional", "locale_override": None, "editing_intensity": "light"},
+    "091": {"default_style_profile": "zh-cn-friendly-professional", "locale_override": None, "editing_intensity": "strict_precision"},
+    "092": {"default_style_profile": "zh-cn-friendly-professional", "locale_override": None, "editing_intensity": "light"},
+    "095": {"default_style_profile": "zh-cn-friendly-professional", "locale_override": None, "editing_intensity": "light"},
+    "098": {"default_style_profile": "zh-cn-friendly-professional", "locale_override": None, "editing_intensity": "light"},
 }
 
 # --- Curated content for all 100 workflows ----------------------------------

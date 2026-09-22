@@ -37,6 +37,14 @@ mode_support:
 language_support:
   input: auto-detect
   output: mirror-user-language
+localization:
+  supported_locales:
+    - en
+    - zh-TW
+  default_style_profile: zh-cn-friendly-professional
+  locale_style_profile_overrides:
+    zh-TW:
+  editing_intensity: strict_precision
 handoff:
   - key: context
     description: "summary of upstream context"

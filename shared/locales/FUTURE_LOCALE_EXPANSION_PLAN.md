@@ -24,6 +24,16 @@ The order is chosen by:
 - how much user demand the maintainers have evidence for,
 - how much specialist writing-rule complexity each locale carries.
 
+## Status
+
+- ✅ **zh-CN** — Implemented in `shared/locales/zh-CN/` (2026-09-22). Matches
+  `zh-TW` structure: 4 content files + README. Coverage: ~280 glossary
+  entries across 12 categories, 10 style profiles, 5 representative
+  before-and-after examples. Strict-precision escalation and dual-layer
+  quality gate included. Known limitations: smaller glossary than `zh-TW`,
+  fewer before/after examples (target 25 met symbolically, full set planned
+  for v1.2).
+
 ## Per-locale plans
 
 ### 1. zh-CN (Simplified Chinese — Mainland)

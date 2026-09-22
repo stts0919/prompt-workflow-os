@@ -40,9 +40,11 @@ If multiple matches apply, prefer the longest playbook chain only when the user 
 When the conversation language is Traditional Chinese, the user explicitly requests `zh-TW` or a Taiwan-targeted deliverable, attach the layer reference and choose a style profile.
 
 ```text
-conversation_language is zh-TW | requested_locale == Taiwan → activate localization layer
+conversation_language is zh-TW | requested_locale == Taiwan → activate zh-TW localization layer
 conversation_language is zh-HK | requested_locale == Hong Kong → honor user request, do not apply zh-TW by default
-conversation_language is zh-CN | requested_locale == Mainland   → honor user request, do not apply zh-TW by default
+conversation_language is zh-CN | requested_locale == Mainland   → honor user request, do not apply zh-TW by default; activate zh-CN layer (see 1.6)
+user explicitly requests 繁體中文 / zh-TW / 台灣               → activate zh-TW regardless of input
+user explicitly requests 簡體中文 / zh-CN / 大陸 / Mainland       → activate zh-CN regardless of input
 
 default_zh_style_profile selection (when localization active):
   category content  → zh-tw-friendly-professional or platform-specific profile
@@ -63,6 +65,45 @@ editing_intensity default per output type:
   default user-facing output             → standard
   legal / medical / financial / security / compliance / regulated   → strict_precision
 ```
+
+## 1.6 zh-CN localization activation
+
+When the conversation language is Simplified Chinese, the user explicitly
+requests `zh-CN` or a Mainland-China-targeted deliverable, attach the layer
+reference and choose a style profile from
+[`../shared/locales/zh-CN/STYLE_PROFILES.md`](../shared/locales/zh-CN/STYLE_PROFILES.md).
+
+```text
+conversation_language is zh-CN | requested_locale == Mainland → activate zh-CN localization layer
+conversation_language is zh-CN | requested_locale == Taiwan    → honor zh-CN form but ask one short clarification; default to zh-TW
+conversation_language is zh-TW | requested_locale == Mainland → ask one short clarification; user likely meant zh-CN
+user explicitly requests 簡體中文 / zh-CN / 大陸 / Mainland → activate zh-CN regardless of input
+
+default_zh_cn_style_profile selection (when zh-CN layer active):
+  category content  → zh-cn-friendly-professional or platform-specific profile
+  category business → zh-cn-business-consulting, zh-cn-landing-page-clear, or zh-cn-email-professional
+  category research → zh-cn-thought-leadership or zh-cn-business-consulting
+  category workflow → zh-cn-friendly-professional
+  category technical→ zh-cn-friendly-professional
+  customer support or reply        → zh-cn-customer-support
+  公众号 / 知乎 long-form           → zh-cn-thought-leadership
+  微博 short post                  → zh-cn-weibo-casual
+  小红书 lifestyle                 → zh-cn-xiaohongshu-lifestyle
+  抖音 script                      → zh-cn-douyin-script
+  哔哩哔哩 / B 站 script           → zh-cn-bilibili-script
+  default fallback                 → zh-cn-friendly-professional
+
+editing_intensity defaults follow the same rules as zh-TW:
+  reserved code / ID / brand name spans → none
+  structured technical output           → light
+  default user-facing output            → standard
+  legal / medical / financial / security / compliance / regulated → strict_precision
+```
+
+Conflict resolution between `zh-TW` and `zh-CN` is decided first by the user's
+explicit instruction, second by the requested output language, third by the
+target market, fourth by the input language. When all four conflict (rare),
+the router asks one short clarification.
 
 ## 2. Input type routing
 

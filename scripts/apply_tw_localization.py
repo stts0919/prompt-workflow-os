@@ -59,12 +59,33 @@ EXPECTED: dict[str, dict] = {
     "065": {"default_style_profile": "zh-tw-research-precise",       "editing_intensity": "strict_precision"},
     "069": {"default_style_profile": "zh-tw-business-consulting",    "editing_intensity": "strict_precision"},
     "070": {"default_style_profile": "zh-tw-business-consulting",    "editing_intensity": "strict_precision"},
+    # workflow (7) — uses zh-cn-friendly-professional as the canonical profile
+    # because these workflows serve both zh-TW and zh-CN audiences and the
+    # zh-cn profile is the most cross-compatible. The locale_style_profile_overrides
+    # block in each frontmatter carries the optional zh-TW override.
+    "072": {"default_style_profile": "zh-cn-friendly-professional", "editing_intensity": "standard"},
+    "074": {"default_style_profile": "zh-cn-friendly-professional", "editing_intensity": "standard"},
+    "076": {"default_style_profile": "zh-cn-friendly-professional", "editing_intensity": "standard"},
+    "080": {"default_style_profile": "zh-cn-friendly-professional", "editing_intensity": "standard"},
+    "081": {"default_style_profile": "zh-cn-friendly-professional", "editing_intensity": "standard"},
+    "086": {"default_style_profile": "zh-cn-friendly-professional", "editing_intensity": "standard"},
+    "088": {"default_style_profile": "zh-cn-friendly-professional", "editing_intensity": "standard"},
+    # technical (5) — code / data / agent specs; light intensity for code-aware
+    # workflows, strict_precision for agent-task-spec since it's the formal
+    # contract a downstream agent reads.
+    "089": {"default_style_profile": "zh-cn-friendly-professional", "editing_intensity": "light"},
+    "091": {"default_style_profile": "zh-cn-friendly-professional", "editing_intensity": "strict_precision"},
+    "092": {"default_style_profile": "zh-cn-friendly-professional", "editing_intensity": "light"},
+    "095": {"default_style_profile": "zh-cn-friendly-professional", "editing_intensity": "light"},
+    "098": {"default_style_profile": "zh-cn-friendly-professional", "editing_intensity": "light"},
 }
 
 CATEGORY_DIR = {
     "content": "01-content",
     "business": "02-business",
     "research": "03-research",
+    "workflow": "04-workflow",
+    "technical": "05-technical",
 }
 
 # id -> category folder (mirrors `indexes/05-all-100-workflows.md`)
@@ -72,6 +93,8 @@ ID_CATEGORY = {
     **{f"{i:03d}": "content" for i in range(12, 29)},  # 012–028
     **{f"{i:03d}": "business" for i in range(31, 53)},  # 031–052
     **{f"{i:03d}": "research" for i in range(55, 71)},  # 055–070
+    **{f"{i:03d}": "workflow" for i in [72, 74, 76, 80, 81, 86, 88]},
+    **{f"{i:03d}": "technical" for i in [89, 91, 92, 95, 98]},
 }
 
 

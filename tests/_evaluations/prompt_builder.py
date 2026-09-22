@@ -32,7 +32,12 @@ LANGUAGE_FILES = {
         "shared/ZH_TW_STYLE_PROFILES.md",
         "shared/ZH_TW_QUALITY_CHECKLIST.md",
     ],
-    "zh-CN": [],
+    "zh-CN": [
+        "shared/locales/zh-CN/WRITING_RULES.md",
+        "shared/locales/zh-CN/TERM_GLOSSARY.md",
+        "shared/locales/zh-CN/STYLE_PROFILES.md",
+        "shared/locales/zh-CN/QUALITY_CHECKLIST.md",
+    ],
     "yue-Hant-HK": [],
     "en": [],
 }

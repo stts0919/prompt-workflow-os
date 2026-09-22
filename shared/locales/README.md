@@ -29,14 +29,18 @@ shared/locales/
 ├── LOCALE_TERM_GLOSSARY_SCHEMA.md             ← canonical glossary schema
 ├── LOCALE_QUALITY_CHECKLIST_SCHEMA.md         ← canonical checklist schema
 ├── FUTURE_LOCALE_EXPANSION_PLAN.md            ← planning for future locales
-└── zh-TW/                                     ← reference implementation
-    ├── WRITING_RULES.md                        ← mirrors shared/ZH_TW_LOCALIZATION_AND_WRITING_RULES.md
-    ├── TERM_GLOSSARY.md                       ← mirrors shared/ZH_TW_TERM_GLOSSARY.md
-    ├── STYLE_PROFILES.md                      ← mirrors shared/ZH_TW_STYLE_PROFILES.md
-    └── QUALITY_CHECKLIST.md                   ← mirrors shared/ZH_TW_QUALITY_CHECKLIST.md
+├── research/                                  ← cross-language editorial references
+└── zh-CN/                                     ← first subdirectory-pack implementation
+    ├── README.md                              ← locale entry point
+    ├── WRITING_RULES.md                       ← source of truth
+    ├── TERM_GLOSSARY.md
+    ├── STYLE_PROFILES.md
+    └── QUALITY_CHECKLIST.md
 ```
 
-Top-level shared files currently serve as the source of truth for `zh-TW` (because it was the first locale implemented). Future locale packs may live entirely under their subdirectory, or may be promoted to top-level once they reach the same maturity.
+`zh-TW` predates this directory layout and lives at the top of `shared/`
+(`shared/ZH_TW_*.md`). New locale packs should follow the subdirectory
+pattern under `shared/locales/<code>/` so the locale tree stays organized.
 
 ## Files in this directory
 

@@ -137,6 +137,50 @@ The router must implement these four required cases exactly.
 - Offer the editorial-quality layer as an alternative, not as a bypass.
 - Do not silently comply. Do not claim such capabilities exist.
 
+#### Case E — zh-CN conversation, English deliverable
+
+> User writes in Simplified Chinese: 「帮我写一封英文合作邀请信。」
+
+- Conversation language stays Simplified Chinese.
+- Clarifying questions, if any, stay in Simplified Chinese.
+- The final email body is in English.
+- The router does **not** apply `zh-CN` prose style rules to the English body.
+- The router applies the universal multilingual rules and the universal quality checklist only.
+
+#### Case F — English conversation, zh-CN deliverable
+
+> User writes in English: 「Write a Xiaohongshu post about a Shanghai coffee shop for Mainland readers.」
+
+- Conversation can stay in English until the user switches.
+- The final Xiaohongshu post is in Simplified Chinese for Mainland readers.
+- Apply `zh-cn-xiaohongshu-lifestyle`.
+- Apply zh-CN glossary substitutions (see
+  [`../shared/locales/zh-CN/TERM_GLOSSARY.md`](../shared/locales/zh-CN/TERM_GLOSSARY.md))
+  and AI-pattern reduction.
+
+#### Case G — Formal zh-CN research report
+
+> User writes in Simplified Chinese: 「帮我把这份研究整理成正式报告。」
+
+- Conversation language is Simplified Chinese without explicit locale.
+- Default to `zh-CN` (and only ask if locale would materially change the
+  outcome).
+- Apply `zh-cn-business-consulting` or `zh-cn-thought-leadership` depending on
+  the channel hint (公众号 / 知乎 vs internal memo).
+- Use `strict_precision` editing intensity when the content is regulated.
+- Keep evidence, attribution, numbers, and uncertainty intact.
+
+#### Case H — Casual Mainland social post (小红书 / 微博 / 抖音)
+
+> User writes in Simplified Chinese: 「帮我写一篇小红书笔记，要接地气一点。」
+
+- Apply `zh-cn-xiaohongshu-lifestyle` (or `zh-cn-weibo-casual` / `zh-cn-douyin-script`
+  depending on the platform hint).
+- Keep it natural, but do not add unsupported personal anecdotes or
+  exaggerated claims.
+- Label assumptions when the user's data is missing.
+- The requested platform determines the profile, not the user's domain.
+
 ### Editing intensity selection
 
 The router assigns one of four intensities per output:
@@ -154,7 +198,7 @@ The router escalates to `strict_precision` automatically when the workflow categ
 - decision memos that cite contested statistics
 - anything in `workflows/03-research` whose output is bound for regulated audiences
 
-The router skips the entire `zh-TW` layer when the deliverable's output language is not `zh-TW` (Case A).
+The router skips the entire `zh-TW` layer when the deliverable's output language is not `zh-TW` (Case A). The same rule applies to the `zh-CN` layer (Case E).
 
 ## Quality review path
 
@@ -164,7 +208,12 @@ When the deliverable is in Traditional Chinese, the AI must apply the checklist 
 2. [../shared/ZH_TW_QUALITY_CHECKLIST.md](../shared/ZH_TW_QUALITY_CHECKLIST.md) — Taiwan-specific checks.
 3. [../shared/OUTPUT_FORMATS.md](../shared/OUTPUT_FORMATS.md) — output skeleton check.
 
-Only deliver when all three pass or the deliverable is marked `PARTIAL`.
+When the deliverable is in Simplified Chinese for Mainland readers, apply
+the same first and third checklists plus:
+
+2'. [../shared/locales/zh-CN/QUALITY_CHECKLIST.md](../shared/locales/zh-CN/QUALITY_CHECKLIST.md) — Mainland-specific checks.
+
+Only deliver when all relevant layers pass or the deliverable is marked `PARTIAL`.
 
 ## Mode handling
 
