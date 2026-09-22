@@ -467,3 +467,8 @@ When activating this layer, the router must:
 - [../tests/language-cases/zh-tw-localization-cases.md](../tests/language-cases/zh-tw-localization-cases.md)
 - [../tests/workflow-cases/zh-tw-output-quality-cases.md](../tests/workflow-cases/zh-tw-output-quality-cases.md)
 - [../shared/locales/README.md](../shared/locales/README.md) — locale architecture reference.
+- [../shared/locales/research/HUMANIZER_REFERENCES.md](../shared/locales/research/HUMANIZER_REFERENCES.md) — cross-language editorial reference list.
+
+## M. Citations
+
+The `zh-TW` layer uses [`kevintsai1202/Humanizer-zh-TW`](https://github.com/kevintsai1202/Humanizer-zh-TW) as editorial inspiration only. We do **not** cite it for any detector-evasion or watermark-removal capability. The full cross-language editorial reference list — including the language-by-language first-look references and the explicit exclusion list for anti-detection bypass tools — is at [../shared/locales/research/HUMANIZER_REFERENCES.md](../shared/locales/research/HUMANIZER_REFERENCES.md).
