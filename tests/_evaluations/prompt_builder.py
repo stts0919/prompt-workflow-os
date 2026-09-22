@@ -38,8 +38,49 @@ LANGUAGE_FILES = {
         "shared/locales/zh-CN/STYLE_PROFILES.md",
         "shared/locales/zh-CN/QUALITY_CHECKLIST.md",
     ],
-    "yue-Hant-HK": [],
-    "en": [],
+    "yue-Hant-HK": [
+        "shared/locales/yue-Hant-HK/WRITING_RULES.md",
+        "shared/locales/yue-Hant-HK/TERM_GLOSSARY.md",
+        "shared/locales/yue-Hant-HK/STYLE_PROFILES.md",
+        "shared/locales/yue-Hant-HK/QUALITY_CHECKLIST.md",
+    ],
+    "en-US": [
+        "shared/locales/en-US/WRITING_RULES.md",
+        "shared/locales/en-US/TERM_GLOSSARY.md",
+        "shared/locales/en-US/STYLE_PROFILES.md",
+        "shared/locales/en-US/QUALITY_CHECKLIST.md",
+    ],
+    "en-GB": [
+        "shared/locales/en-GB/WRITING_RULES.md",
+        "shared/locales/en-GB/TERM_GLOSSARY.md",
+        "shared/locales/en-GB/STYLE_PROFILES.md",
+        "shared/locales/en-GB/QUALITY_CHECKLIST.md",
+    ],
+    "ja-JP": [
+        "shared/locales/ja-JP/WRITING_RULES.md",
+        "shared/locales/ja-JP/TERM_GLOSSARY.md",
+        "shared/locales/ja-JP/STYLE_PROFILES.md",
+        "shared/locales/ja-JP/QUALITY_CHECKLIST.md",
+    ],
+    "ko-KR": [
+        "shared/locales/ko-KR/WRITING_RULES.md",
+        "shared/locales/ko-KR/TERM_GLOSSARY.md",
+        "shared/locales/ko-KR/STYLE_PROFILES.md",
+        "shared/locales/ko-KR/QUALITY_CHECKLIST.md",
+    ],
+    "id-ID": [
+        "shared/locales/id-ID/WRITING_RULES.md",
+        "shared/locales/id-ID/TERM_GLOSSARY.md",
+        "shared/locales/id-ID/STYLE_PROFILES.md",
+        "shared/locales/id-ID/QUALITY_CHECKLIST.md",
+    ],
+    "vi-VN": [
+        "shared/locales/vi-VN/WRITING_RULES.md",
+        "shared/locales/vi-VN/TERM_GLOSSARY.md",
+        "shared/locales/vi-VN/STYLE_PROFILES.md",
+        "shared/locales/vi-VN/QUALITY_CHECKLIST.md",
+    ],
+    "en": [],  # fallback when no specific English variant is named
 }
 
 

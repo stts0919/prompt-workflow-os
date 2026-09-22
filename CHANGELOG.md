@@ -60,3 +60,27 @@ Versioning follows [Semantic Versioning](https://semver.org/).
 - **Shared style profile schema** (`shared/locales/SHARED_STYLE_PROFILE_SCHEMA.md`). 8 core fields both `zh-TW` and `zh-CN` style profiles implement, plus locale-specific extension fields documented per pack. New locale packs implement the core first; locale-specific fields are optional. Resolves SPEC.md open question 4.
 - **SPEC.md open question 3 resolved.** Keep `editing_intensity` per-workflow for v1.x; the router already auto-escalates to `strict_precision` for regulated content. Channel-specific overrides would expand the schema without solving a problem the maintainers have evidence for. Revisit if per-channel failures start showing up in `tests/_evaluations/results/` baselines.
 - **All 4 SPEC.md open questions are now resolved.** See [`SPEC.md`](SPEC.md) § "Resolved open questions" for the full rationale.
+- **Five additional locale packs** (`FUTURE_LOCALE_EXPANSION_PLAN.md` priorities 2-8):
+  - `yue-Hant-HK` (Traditional Chinese — Hong Kong, with Cantonese 口語 handling)
+  - `en-US` (English — United States)
+  - `en-GB` (English — United Kingdom, with formal letter register)
+  - `ja-JP` (Japanese, with full keigo system: sonkeigo / kenjōgo / teineigo)
+  - `ko-KR` (Korean, with 합쇼체 / 해요체 / 반말체 register)
+  - `id-ID` (Indonesian, with PUEBI 2015 spelling)
+  - `vi-VN` (Vietnamese, with full diacritics and family-based pronouns)
+- All 8 locale packs now follow the subdirectory pattern under
+  `shared/locales/<code>/`. Each pack has 4 content files + README
+  matching the `zh-TW` / `zh-CN` structural rigor.
+- `router/ROUTING_RULES.md` adds section 1.7 (yue-Hant-HK), 1.8
+  (en-US / en-GB), 1.9 (ja-JP / ko-KR / id-ID / vi-VN) covering
+  activation rules and default style-profile selection per locale.
+- `tests/_evaluations/prompt_builder.py` `LANGUAGE_FILES` map now
+  points at all 8 locale packs. Harness loads the correct layer for
+  any case whose expected_locale resolves to one of these codes.
+- `tests/language-cases/locale-coverage.md` adds 18 router-level
+  smoke tests covering all 8 locales (1-3 cases per locale + 3
+  cross-locale cases). Full localization suites remain at
+  `zh-tw-localization-cases.md` (35 cases) and
+  `zh-cn-localization-cases.md` (35 cases).
+- `shared/locales/FUTURE_LOCALE_EXPANSION_PLAN.md` status table
+  marks all 8 locales as **Implemented** as of 2026-09-22.

@@ -105,6 +105,133 @@ explicit instruction, second by the requested output language, third by the
 target market, fourth by the input language. When all four conflict (rare),
 the router asks one short clarification.
 
+## 1.7 yue-Hant-HK localization activation
+
+When the conversation language is Traditional Chinese, Cantonese vocabulary
+is detected, or the user explicitly names Hong Kong / a HK city as the target
+market, attach the yue-Hant-HK layer reference and choose a style profile from
+[`../shared/locales/yue-Hant-HK/STYLE_PROFILES.md`](../shared/locales/yue-Hant-HK/STYLE_PROFILES.md).
+
+```text
+conversation_language is TC + Cantonese vocabulary detected        → activate yue-Hant-HK
+requested_locale == Hong Kong (explicit)                            → activate yue-Hant-HK
+conversation_language is TC + requested_locale unspecified          → ask one short clarification; default to zh-TW (more channels covered)
+user explicitly requests 「香港」「HK」「Cantonese」「廣東話」         → activate yue-Hant-HK
+
+default_yue_hk_style_profile selection:
+  category content  → yue-hk-facebook-friendly or yue-hk-long-form-article
+  category business → yue-hk-email-professional or yue-hk-business-consulting
+  category research → yue-hk-business-consulting
+  category workflow → yue-hk-business-consulting
+  category technical→ yue-hk-business-consulting
+  customer support or reply        → yue-hk-customer-support
+  WhatsApp / Telegram / Signal      → yue-hk-chat-casual
+  Facebook comment                  → yue-hk-facebook-casual
+  Facebook post (long)              → yue-hk-facebook-friendly
+  Instagram caption                 → yue-hk-instagram-casual
+  LIHKG forum                       → yue-hk-lihkg-style
+  LinkedIn                          → yue-hk-linkedin-professional
+  legal / compliance                → yue-hk-legal-formal
+  default fallback                  → yue-hk-friendly-professional
+```
+
+Cantonese 口語 (食、飲、嘅、喺、唔、搞掂、唔該) is acceptable in casual
+channels (chat, Facebook comment, LIHKG) but must be excluded from formal
+channels (legal, email, business consulting). The writing rules section E.3
+documents which vocabulary is safe.
+
+## 1.8 en-US and en-GB localization activation
+
+When the user requests output in English, attach an English locale layer.
+For unspecified "English" requests, default to `en-US` because most global
+English training data and most users default to US conventions. Switch to
+`en-GB` when the user explicitly names the UK or uses UK spellings
+(`organisation`, `colour`, `behaviour`).
+
+```text
+requested_locale == English + US signal (or unspecified)            → activate en-US
+requested_locale == English + UK signal                             → activate en-GB
+UK spellings in user input (organisation / colour / behaviour)      → likely en-GB; ask if ambiguous
+user explicitly requests "British English" / "UK English"            → activate en-GB
+
+default_en_us_style_profile selection (en-US layer active):
+  category content  → en-us-friendly-professional
+  category business → en-us-email-professional or en-us-landing-page-clear
+  category research → en-us-business-consulting
+  category workflow → en-us-business-consulting
+  category technical→ en-us-friendly-professional
+  customer support or reply        → en-us-customer-support
+  LinkedIn                          → en-us-linkedin-professional
+  Twitter / X                       → en-us-twitter-casual
+  Reddit                            → en-us-reddit-casual
+  marketing email                   → en-us-email-marketing
+  default fallback                  → en-us-friendly-professional
+
+default_en_gb_style_profile selection (en-GB layer active):
+  category content  → en-gb-friendly-professional
+  category business → en-gb-email-professional or en-gb-formal-letter
+  category research → en-gb-business-consulting
+  category workflow → en-gb-business-consulting
+  category technical→ en-gb-friendly-professional
+  customer support or reply        → en-gb-customer-support
+  LinkedIn                          → en-gb-linkedin-professional
+  Twitter / X                       → en-gb-twitter-casual
+  marketing email                   → en-gb-email-professional
+  formal letter                     → en-gb-formal-letter
+  financial / regulatory            → en-gb-finance-formal
+  default fallback                  → en-gb-friendly-professional
+```
+
+For both English locales, editing_intensity follows the same rules as
+zh-TW / zh-CN.
+
+## 1.9 ja-JP, ko-KR, id-ID, vi-VN localization activation
+
+Activate the corresponding locale pack when the user requests output in
+Japanese, Korean, Indonesian, or Vietnamese (or explicitly names the target
+market). When the input contains characters of the locale's script, the
+router activates the layer without asking.
+
+```text
+conversation_language is ja-JP / ko-KR / id-ID / vi-VN → activate that locale's layer
+requested_locale == Japan / South Korea / Indonesia / Vietnam → activate that locale's layer
+locale pack's characters appear in user input           → activate that locale's layer
+user explicitly requests that language                  → activate that locale's layer
+
+editing_intensity: same rules as zh-TW / zh-CN / en-US (none / light /
+standard / strict_precision; auto-escalate for regulated content).
+
+default style profile selection (all four locales):
+  general professional        → <locale>-friendly-professional
+  email (formal / business)   → <locale>-email-formal
+  email (casual / internal)   → <locale>-email-casual
+  long-form article           → <locale>-long-form-article
+  business document / proposal→ <locale>-business-document
+  customer support            → <locale>-customer-support
+  sales / landing             → <locale>-landing-page-clear
+
+Locale-specific channel overrides:
+  ja-JP Twitter / X            → ja-jp-twitter-casual
+  ja-JP LINE                   → ja-jp-line-casual
+  ja-JP note.com long-form     → ja-jp-long-form-article
+  ko-KR Twitter / X            → ko-kr-twitter-casual
+  ko-KR Naver blog             → ko-kr-naver-blog
+  ko-KR KakaoTalk              → ko-kr-kakao-casual
+  id-ID Twitter / X            → id-id-twitter-casual
+  id-ID Instagram              → id-id-instagram-casual
+  id-ID WhatsApp               → id-id-whatsapp-casual
+  id-ID LinkedIn               → id-id-linkedin-professional
+  vi-VN Zalo                   → vi-vn-zalo-casual
+  vi-VN Facebook               → vi-vn-facebook-casual
+  vi-VN LinkedIn               → vi-vn-linkedin-professional
+  vi-VN Twitter / X            → vi-vn-twitter-casual
+```
+
+Each locale's full profile list lives in
+`shared/locales/<locale>/STYLE_PROFILES.md`. The router's role is to pick
+the most appropriate profile given the workflow category, channel hint,
+and target market.
+
 ## 2. Input type routing
 
 | Input type                  | Default first action                                              |
