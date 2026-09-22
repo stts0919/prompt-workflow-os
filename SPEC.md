@@ -293,26 +293,44 @@ release is tagged in GitHub Releases.
   what the system guarantees. The user verifies claims; the AI surfaces
   what it knows.
 
-## Open questions for future maintainers
+## Resolved open questions
 
-These are decisions the current maintainers did not make and would
-welcome a discussion on:
+These four questions were raised in earlier versions of this document.
+Each is resolved as of 2026-09-22.
 
 1. **Should `zh-TW` migrate to the `shared/locales/zh-TW/` subdirectory
-   layout?** Today it lives at the top of `shared/` as a legacy mirror.
-   Migrating it would remove the asymmetry that `zh-CN` does not have a
-   top-level mirror.
-2. **Should the harness auto-score?** Today it does not. A thin layer
-   that flags obvious failures (main-content-language check, banned-phrase
-   check, protected-span check) would be a useful guardrail without
-   replacing the human scorer.
+   layout?** — **Resolved: yes, done.** The four zh-TW content files now
+   live at `shared/locales/zh-TW/` with shorter filenames matching the
+   zh-CN convention (`WRITING_RULES.md`, `TERM_GLOSSARY.md`,
+   `STYLE_PROFILES.md`, `QUALITY_CHECKLIST.md`) plus a `README.md` entry
+   point. Every reference across the repository was rewritten.
+
+2. **Should the harness auto-score?** — **Resolved: yes, with a thin
+   guardrail.** [`tests/_evaluations/auto_scorer.py`](tests/_evaluations/auto_scorer.py)
+   applies three checks: (a) main-content-language, (b) failure-condition
+   phrase verbatim, (c) protected-span verbatim. It writes a verdict
+   file next to the source JSONL and never overwrites the human
+   `rubric` scores. The disambiguation between `zh-TW` and `zh-CN`
+   (Traditional vs Simplified) is left to the human scorer — the
+   auto-scorer only flags obvious failures like "expected English, got
+   Chinese" or "this protected span is missing".
+
 3. **Should `editing_intensity` be per-channel rather than per-workflow?**
-   The current per-workflow model is fine for now, but a single workflow
-   might need different intensities for different outputs.
+   — **Resolved: keep per-workflow, add an override mechanism.** The
+   current per-workflow model in the frontmatter is the source of truth
+   for v1.x. The router already auto-escalates to `strict_precision`
+   for regulated content. Channel-specific overrides would expand the
+   schema without solving a problem the maintainers have evidence for;
+   the router's channel hint already selects the style profile, which
+   is the stronger lever. Revisit if per-channel failures start
+   showing up in `tests/_evaluations/results/` baselines.
+
 4. **How do we handle shared style profiles between `zh-TW` and `zh-CN`?**
-   Several `zh-tw-*` profiles have near-equivalents in `zh-cn-*` (e.g.
-   `email-professional`, `landing-page-clear`). A shared schema makes
-   sense, but the locale-specific voices are still distinct.
+   — **Resolved: shared core schema, locale-specific extensions.** See
+   [`shared/locales/SHARED_STYLE_PROFILE_SCHEMA.md`](shared/locales/SHARED_STYLE_PROFILE_SCHEMA.md)
+   for the 8 core fields and the two locale-specific extension sets.
+   New locale packs implement the core first; locale-specific fields
+   are optional.
 
 ## References
 
