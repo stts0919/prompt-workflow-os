@@ -1,5 +1,9 @@
 # 100 ChatGPT Prompt Workflows
 
+[![CI](https://github.com/stts0919/prompt-workflow-os/actions/workflows/validate.yml/badge.svg)](https://github.com/stts0919/prompt-workflow-os/actions/workflows/validate.yml)
+[![Release](https://img.shields.io/github/v/tag/stts0919/prompt-workflow-os?label=release&sort=semver)](https://github.com/stts0919/prompt-workflow-os/releases)
+[![License](https://img.shields.io/github/license/stts0919/prompt-workflow-os)](LICENSE)
+
 > You do not need to memorize prompts, browse categories, or copy templates.
 > Share this repository with an AI, describe what you want, and the AI selects the right workflow for you.
 
