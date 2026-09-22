@@ -44,7 +44,7 @@ The harness prompt for a single zh-TW case is typically 8k–25k tokens of input
 | ----- | --------------------: |
 | gpt-5.6-luna | ~$0.02 |
 | claude-opus-5 | ~$0.04 |
-| gemini-flash-3.8 | ~$0.005 |
+| gemini-3.8-flash | ~$0.005 |
 
 For the full 65 zh-TW cases:
 
@@ -52,16 +52,19 @@ For the full 65 zh-TW cases:
 | ----- | ------------: |
 | gpt-5.6-luna | ~$1.30 |
 | claude-opus-5 | ~$2.60 |
-| gemini-flash-3.8 | ~$0.33 |
+| gemini-3.8-flash | ~$0.33 |
 
-These are very rough; verify against the current pricing of each model. For monthly drift checks (e.g. once a quarter), budget around $15–$25 for the full 100-case sweep across three model families.
+These are very rough; verify against the current pricing of each model in
+[`../../../shared/MODELS_OF_RECORD.md`](../../../shared/MODELS_OF_RECORD.md).
+For monthly drift checks (e.g. once a quarter), budget around $15–$25 for
+the full 100-case sweep across three model families.
 
 ## What to record
 
 For each case, the JSONL record must include:
 
 - `response` — verbatim model output.
-- `model_version` — vendor-supplied snapshot identifier (e.g. `claude-opus-5-2026-08-01`).
+- `model_version` — vendor-supplied snapshot identifier (e.g. `claude-opus-5-20260724` or `gpt-6-astra-2026-09-03`).
 - `timestamp` — UTC ISO-8601 string at time of call.
 - `locale_actual`, `profile_actual`, `editing_intensity_actual` — what the model picked or appeared to use. These can be filled by an automatic extractor later.
 - `rubric` — the five 1–5 scores.

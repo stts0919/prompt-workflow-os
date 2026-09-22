@@ -10,10 +10,12 @@ Field semantics:
 - case_id:      Test case identifier — section heading text from the test file.
 - case_path:    Relative path to the test case file under tests/.
 - case_kind:    "language" | "workflow" | "router".
-- model_id:     The model under test. Free-form but should match
-                shared/locales/research/HUMANIZER_REFERENCES.md conventions
-                when the model is named there.
-- model_version: Optional vendor version string (e.g. "claude-opus-5-2026-08-01").
+- model_id:     The model under test. Free-form but should match the canonical
+                IDs in shared/MODELS_OF_RECORD.md (e.g. "gpt-6-astra",
+                "claude-opus-5", "gemini-3.8-flash").
+- model_version: Optional vendor version string (e.g. "claude-opus-5-20260724"
+                or "gpt-6-astra-2026-09-03"). Keep this as the vendor-supplied
+                snapshot string; do not invent your own.
 - timestamp:    ISO-8601 UTC timestamp at time of recording.
 - prompt:       The full prompt sent to the model.
 - response:     The full model output. If the manual operator protocol is used,

@@ -26,9 +26,13 @@ The current target list (subject to change):
 
 - **GPT-5.6 Luna / Terra / Sol + GPT-6 Astra** (OpenAI-side priority models).
 - **Claude Sonnet / Opus / Fable 5+** (Anthropic-side priority models).
-- **Gemini Flash 3.8** (the only Gemini model the user evaluates for now).
+- **Gemini 3.8 Flash** (the only Gemini model the user evaluates for now).
 
-Add new models to this list as they become available. Update `operators/api.md`'s cost table and "Recommended client pattern" example when you add a model.
+The canonical model IDs, release dates, context windows, and current pricing
+live in [`../../shared/MODELS_OF_RECORD.md`](../../shared/MODELS_OF_RECORD.md)
+(last verified 2026-09-22). When you add a model, update that file first,
+then update `operators/api.md`'s cost table and "Recommended client pattern"
+example.
 
 ## How to run
 
@@ -61,7 +65,7 @@ Fill in `rubric` per `rubric.md`. Commit the file under `results/<run-id>/<case-
 
 ```bash
 python3 tests/_evaluations/harness.py compare \
-    --runs 2026-Q3/gpt-5.6-luna,2026-Q3/claude-opus-5,2026-Q3/gemini-flash-3.8 \
+    --runs 2026-Q3/gpt-5.6-luna,2026-Q3/claude-opus-5,2026-Q3/gemini-3.8-flash \
     --out tests/_evaluations/results/2026-Q3/_compare.md
 ```
 
@@ -85,7 +89,7 @@ tests/_evaluations/
 │       │   ├── language-cases.jsonl     ← one record per case
 │       │   └── workflow-cases.jsonl
 │       ├── claude-opus-5/
-│       └── gemini-flash-3.8/
+│       └── gemini-3.8-flash/
 └── scripts/                   ← operator helpers (one-off or recurring)
 ```
 

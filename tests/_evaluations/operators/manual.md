@@ -49,7 +49,7 @@ Run the AI evaluation harness when you cannot or do not want to call model APIs 
 
    ```bash
    python3 tests/_evaluations/harness.py compare \
-       --runs 2026-Q3/gpt-5.6-luna,2026-Q3/claude-opus-5,2026-Q3/gemini-flash-3.8 \
+       --runs 2026-Q3/gpt-5.6-luna,2026-Q3/claude-opus-5,2026-Q3/gemini-3.8-flash \
        --out tests/_evaluations/results/2026-Q3/_compare.md
    ```
 

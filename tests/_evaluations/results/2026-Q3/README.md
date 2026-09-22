@@ -19,7 +19,11 @@ After the stub is generated, an operator (manual or API) fills the empty `respon
 | ------------------ | :--: | :--------: | :-----: | ----- |
 | gpt-5.6-luna       |  ✅  |     —      |    —    | awaiting operator |
 | claude-opus-5      |  ✅  |     —      |    —    | awaiting operator |
-| gemini-flash-3.8   |  ✅  |     —      |    —    | awaiting operator |
+| gemini-3.8-flash   |  ✅  |     —      |    —    | awaiting operator |
+
+Canonical model IDs and current pricing live in
+[`../../../../shared/MODELS_OF_RECORD.md`](../../../../shared/MODELS_OF_RECORD.md)
+(last verified 2026-09-22).
 
 ## How to fill the first run
 

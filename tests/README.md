@@ -66,8 +66,12 @@ the operator. Models the user is currently evaluating with:
 
 - `gpt-5.6-luna` / `gpt-5.6-terra` / `gpt-5.6-sol`
 - `gpt-6-astra`
-- `claude-sonnet-5` / `claude-opus-5` / `claude-fable-5`
-- `gemini-flash-3.8`
+- `claude-sonnet-5` / `claude-opus-5` / `claude-fable-5-1`
+- `gemini-3.8-flash`
+
+The canonical model IDs, release dates, context windows, and current pricing
+live in [`../shared/MODELS_OF_RECORD.md`](../shared/MODELS_OF_RECORD.md)
+(last verified 2026-09-22).
 
 See `tests/_evaluations/operators/manual.md` for the paste-into-UI protocol and
 `tests/_evaluations/operators/api.md` for the API client pattern. The rubric

@@ -13,7 +13,7 @@ results/
 │   │   └── workflow-cases.jsonl
 │   ├── claude-opus-5/
 │   │   └── ...
-│   └── gemini-flash-3.8/
+│   └── gemini-3.8-flash/
 │       └── ...
 └── YYYY-Qn/                 ← next batch
 ```
@@ -46,7 +46,11 @@ A batch is **acceptable** when ≥ 90% of lines are acceptable.
 
 ## How to add a new model
 
-Models enter via the user's evaluation list. Update [../README.md](../README.md) when a new model becomes part of the regular evaluation set.
+Models enter via the user's evaluation list. Update [../README.md](../README.md)
+when a new model becomes part of the regular evaluation set, and update the
+canonical reference at
+[`../../../shared/MODELS_OF_RECORD.md`](../../../shared/MODELS_OF_RECORD.md)
+with release date, API model ID, context window, and current pricing.
 
 ## What NOT to do
 
