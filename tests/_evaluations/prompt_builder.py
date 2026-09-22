@@ -27,10 +27,10 @@ REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 
 LANGUAGE_FILES = {
     "zh-TW": [
-        "../../shared/locales/zh-TW/WRITING_RULES.md",
-        "../../shared/locales/zh-TW/TERM_GLOSSARY.md",
-        "../../shared/locales/zh-TW/STYLE_PROFILES.md",
-        "../../shared/locales/zh-TW/QUALITY_CHECKLIST.md",
+        "shared/locales/zh-TW/WRITING_RULES.md",
+        "shared/locales/zh-TW/TERM_GLOSSARY.md",
+        "shared/locales/zh-TW/STYLE_PROFILES.md",
+        "shared/locales/zh-TW/QUALITY_CHECKLIST.md",
     ],
     "zh-CN": [
         "shared/locales/zh-CN/WRITING_RULES.md",
@@ -319,12 +319,27 @@ def build_prompt_text(
 
 
 def extract_locale_code(locale_text: str) -> str:
-    """Pull a BCP-47 code out of a case's locale field, default to empty."""
-    m = re.search(r"\b(zh-[A-Z]+|en-[A-Z]+|ja-JP|ko-KR|id-ID|vi-VN)\b", locale_text or "")
-    if m:
-        return m.group(1)
-    if "Taiwan" in locale_text or "zh-TW" in locale_text:
-        return "zh-TW"
+    """Pull a BCP-47 code out of a case's locale field, default to empty.
+
+    The order matters: longer / more specific codes must come first so they
+    don't get shadowed by a prefix match (e.g. `yue-Hant-HK` before any
+    `zh-...` fallback).
+    """
+    # Specific codes first — these must NOT be matched by any prefix pattern.
+    specific = [
+        "yue-Hant-HK",
+        "zh-TW",
+        "zh-CN",
+        "en-US",
+        "en-GB",
+        "ja-JP",
+        "ko-KR",
+        "id-ID",
+        "vi-VN",
+    ]
+    for code in specific:
+        if code in (locale_text or ""):
+            return code
     return ""
 
 

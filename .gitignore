@@ -28,10 +28,10 @@ node_modules/
 .env.local
 
 # Recorded model responses (operator-local; contain verbatim model output
-# that may include sensitive / private content — never commit).
-tests/_evaluations/results/**/language-cases.jsonl
-tests/_evaluations/results/**/workflow-cases.jsonl
-tests/_evaluations/results/**/router-cases.jsonl
+# that may include sensitive / private content — never commit). All JSONL
+# under results/ (stubs, filled-in responses, auto-verdict sidecars) stays
+# operator-local.
+tests/_evaluations/results/**/*.jsonl
 tests/_evaluations/results/**/_compare.md
 
 # Logs
