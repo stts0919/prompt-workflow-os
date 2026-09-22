@@ -15,9 +15,9 @@ Apply before delivering any non-trivial output.
 
 ## Localization checks
 
-- [ ] When the conversation language is Traditional Chinese or the deliverable targets Taiwan readers, the [Taiwan Traditional Chinese quality checklist](ZH_TW_QUALITY_CHECKLIST.md) is applied in addition to this checklist.
+- [ ] When the conversation language is Traditional Chinese or the deliverable targets Taiwan readers, the [Taiwan Traditional Chinese quality checklist](locales/zh-TW/QUALITY_CHECKLIST.md) is applied in addition to this checklist.
 - [ ] Output does not claim human authorship, watermark removal, or AI detection evasion as a result of editing.
-- [ ] For zh-TW output, regional terminology is context-appropriate (see [ZH_TW_TERM_GLOSSARY.md](ZH_TW_TERM_GLOSSARY.md)).
+- [ ] For zh-TW output, regional terminology is context-appropriate (see [locales/zh-TW/TERM_GLOSSARY.md](locales/zh-TW/TERM_GLOSSARY.md)).
 - [ ] Protected content (code, IDs, URLs, brand names, required disclosures) is unchanged.
 
 ## Per category
@@ -29,7 +29,7 @@ Apply before delivering any non-trivial output.
 - [ ] Sources for factual claims are cited or flagged as unverified.
 - [ ] Tone matches the brand voice guide (if provided).
 - [ ] Call to action is appropriate to the stage.
-- [ ] For zh-TW output, the chosen [style profile](ZH_TW_STYLE_PROFILES.md) is applied consistently.
+- [ ] For zh-TW output, the chosen [style profile](locales/zh-TW/STYLE_PROFILES.md) is applied consistently.
 
 ### Business deliverables
 
@@ -87,4 +87,4 @@ followed by:
 - Why it was skipped
 - What the user can supply to finish
 
-When the failing item is localization or writing quality for zh-TW, also note which checklist item failed and link to [ZH_TW_QUALITY_CHECKLIST.md](ZH_TW_QUALITY_CHECKLIST.md).
+When the failing item is localization or writing quality for zh-TW, also note which checklist item failed and link to [locales/zh-TW/QUALITY_CHECKLIST.md](locales/zh-TW/QUALITY_CHECKLIST.md).

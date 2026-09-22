@@ -53,10 +53,10 @@ This repository is a library of 100 prompt workflows. You do not need to memoriz
 | How to ask                            | [router/CLARIFICATION_PROTOCOL.md](router/CLARIFICATION_PROTOCOL.md) |
 | Context ledger                        | [router/CONTEXT_LEDGER.md](router/CONTEXT_LEDGER.md) |
 | Fallback when nothing matches         | [router/FALLBACK_RULES.md](router/FALLBACK_RULES.md) |
-| Taiwan Traditional Chinese localization | [shared/ZH_TW_LOCALIZATION_AND_WRITING_RULES.md](shared/ZH_TW_LOCALIZATION_AND_WRITING_RULES.md) |
-| zh-TW term glossary                   | [shared/ZH_TW_TERM_GLOSSARY.md](shared/ZH_TW_TERM_GLOSSARY.md) |
-| zh-TW style profiles                  | [shared/ZH_TW_STYLE_PROFILES.md](shared/ZH_TW_STYLE_PROFILES.md) |
-| zh-TW quality checklist               | [shared/ZH_TW_QUALITY_CHECKLIST.md](shared/ZH_TW_QUALITY_CHECKLIST.md) |
+| Taiwan Traditional Chinese localization | [shared/locales/zh-TW/WRITING_RULES.md](shared/locales/zh-TW/WRITING_RULES.md) |
+| zh-TW term glossary                   | [shared/locales/zh-TW/TERM_GLOSSARY.md](shared/locales/zh-TW/TERM_GLOSSARY.md) |
+| zh-TW style profiles                  | [shared/locales/zh-TW/STYLE_PROFILES.md](shared/locales/zh-TW/STYLE_PROFILES.md) |
+| zh-TW quality checklist               | [shared/locales/zh-TW/QUALITY_CHECKLIST.md](shared/locales/zh-TW/QUALITY_CHECKLIST.md) |
 | Locale architecture (future locales)  | [shared/locales/README.md](shared/locales/README.md) |
 
 ## Quick reference for AI

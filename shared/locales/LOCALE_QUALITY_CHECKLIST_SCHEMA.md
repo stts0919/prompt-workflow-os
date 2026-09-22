@@ -1,6 +1,6 @@
 # Locale Quality Checklist Schema
 
-Every locale pack must define its quality checklist using this two-layer schema. The `zh-TW` check list under [../ZH_TW_QUALITY_CHECKLIST.md](../ZH_TW_QUALITY_CHECKLIST.md) is the reference implementation.
+Every locale pack must define its quality checklist using this two-layer schema. The `zh-TW` check list under [zh-TW/QUALITY_CHECKLIST.md](zh-TW/QUALITY_CHECKLIST.md) is the reference implementation.
 
 ## Two layers
 

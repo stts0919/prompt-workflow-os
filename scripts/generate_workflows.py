@@ -26,7 +26,7 @@ CATEGORY_DIR = {
 # router infers from `templates/WORKFLOW_TEMPLATE.md`.
 #
 # Schema per id:
-#   default_style_profile: zh-TW profile name (see shared/ZH_TW_STYLE_PROFILES.md)
+#   default_style_profile: zh-TW profile name (see ../shared/locales/zh-TW/STYLE_PROFILES.md)
 #   locale_override:       None to use default, or a profile name to override
 #                          when the deliverable's target market is Taiwan
 #   editing_intensity:     one of none / light / standard / strict_precision

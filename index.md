@@ -51,7 +51,7 @@ The router classifies each request by primary goal, current stage, input type, d
 
 ## Localization
 
-This repo includes a [Taiwan Traditional Chinese (`zh-TW`) localization layer](shared/ZH_TW_LOCALIZATION_AND_WRITING_RULES.md) with:
+This repo includes a [Taiwan Traditional Chinese (`zh-TW`) localization layer](shared/locales/zh-TW/WRITING_RULES.md) with:
 
 - a 156-entry context-sensitive term glossary,
 - 15 style profiles (Threads, Instagram, LinkedIn, Email, Sales, Landing, Article, Research, Tech, SOP, Agent spec, Support, etc.),

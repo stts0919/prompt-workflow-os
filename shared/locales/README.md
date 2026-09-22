@@ -1,6 +1,6 @@
 # Locale Architecture — shared/locales/
 
-This directory defines how locale packs are organized in `prompt-workflow-os`. The Taiwan Traditional Chinese (`zh-TW`) layer under [../ZH_TW_LOCALIZATION_AND_WRITING_RULES.md](../ZH_TW_LOCALIZATION_AND_WRITING_RULES.md) is the **reference implementation** for this architecture. Future locale packs must satisfy the same structural contract even when their content differs.
+This directory defines how locale packs are organized in `prompt-workflow-os`. The Taiwan Traditional Chinese (`zh-TW`) layer under [zh-TW/WRITING_RULES.md](zh-TW/WRITING_RULES.md) is the **reference implementation** for this architecture. Future locale packs must satisfy the same structural contract even when their content differs.
 
 ## What a locale is
 

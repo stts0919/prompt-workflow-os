@@ -4,7 +4,7 @@ title: "Taiwan Traditional Chinese Term Glossary"
 applies_when:
   - Taiwan localization layer is active
 companion_files:
-  - ZH_TW_LOCALIZATION_AND_WRITING_RULES.md
+  - WRITING_RULES.md
 version: 2.0.0
 entry_count: 156
 ---

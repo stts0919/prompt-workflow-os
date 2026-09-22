@@ -34,10 +34,10 @@ The numbers reported by the validator for this run:
 
 ### Files present
 
-- `shared/ZH_TW_LOCALIZATION_AND_WRITING_RULES.md`
-- `shared/ZH_TW_TERM_GLOSSARY.md`
-- `shared/ZH_TW_STYLE_PROFILES.md`
-- `shared/ZH_TW_QUALITY_CHECKLIST.md`
+- `shared/locales/zh-TW/WRITING_RULES.md`
+- `shared/locales/zh-TW/TERM_GLOSSARY.md`
+- `shared/locales/zh-TW/STYLE_PROFILES.md`
+- `shared/locales/zh-TW/QUALITY_CHECKLIST.md`
 - `tests/language-cases/zh-tw-localization-cases.md`
 - `tests/workflow-cases/zh-tw-output-quality-cases.md`
 - `ZH_TW_LOCALIZATION_VALIDATION_REPORT.md` (this file)
@@ -59,11 +59,11 @@ The numbers reported by the validator for this run:
 
 ### Glossary entries
 
-- `shared/ZH_TW_TERM_GLOSSARY.md` contains **145 numbered entries** organized by category: general UI, AI and technology, business and strategy, marketing and content, product and design, research and data, work and project management, e-commerce and customer support, common conversational expressions, regional variants.
+- `shared/locales/zh-TW/TERM_GLOSSARY.md` contains **145 numbered entries** organized by category: general UI, AI and technology, business and strategy, marketing and content, product and design, research and data, work and project management, e-commerce and customer support, common conversational expressions, regional variants.
 
 ### Style profiles
 
-- `shared/ZH_TW_STYLE_PROFILES.md` defines **11 profiles**: `zh-tw-conversational-help`, `zh-tw-friendly-professional`, `zh-tw-business-consulting`, `zh-tw-social-casual`, `zh-tw-social-insightful`, `zh-tw-sales-clear`, `zh-tw-email-professional`, `zh-tw-research-precise`, `zh-tw-technical-clear`, `zh-tw-sop-direct`, `zh-tw-customer-support`. Each profile has YAML keys plus a sample paragraph.
+- `shared/locales/zh-TW/STYLE_PROFILES.md` defines **11 profiles**: `zh-tw-conversational-help`, `zh-tw-friendly-professional`, `zh-tw-business-consulting`, `zh-tw-social-casual`, `zh-tw-social-insightful`, `zh-tw-sales-clear`, `zh-tw-email-professional`, `zh-tw-research-precise`, `zh-tw-technical-clear`, `zh-tw-sop-direct`, `zh-tw-customer-support`. Each profile has YAML keys plus a sample paragraph.
 
 ### Test coverage
 

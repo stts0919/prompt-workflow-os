@@ -446,7 +446,7 @@ references to them, leave the names in English; do not translate to 「脸书」
 
 The 12 categories above implicitly cover the cross-strait terms. The reverse
 reference (`zh-TW` → `zh-CN`) is in
-[../shared/ZH_TW_TERM_GLOSSARY.md](../../ZH_TW_TERM_GLOSSARY.md) section 13
+[../../zh-TW/TERM_GLOSSARY.md](../zh-TW/TERM_GLOSSARY.md) section 13
 "Cross-strait terminology differences". When you write for Mainland, flip
 those entries to the Mainland form.
 

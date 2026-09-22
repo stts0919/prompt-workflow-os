@@ -5,13 +5,13 @@ These cases check the integrated behavior of a workflow plus the Taiwan Traditio
 - **User request** — the literal user message.
 - **Workflow selected** — the workflow slug the router should pick.
 - **Expected locale** — `zh-TW` by default; one case exercises Hong Kong.
-- **Expected style profile** — from `shared/ZH_TW_STYLE_PROFILES.md`.
+- **Expected style profile** — from `../../shared/locales/zh-TW/STYLE_PROFILES.md`.
 - **Expected editing intensity** — `none | light | standard | strict_precision`.
 - **Expected router behavior** — what the router does before producing the output.
 - **Required protections** — protected content the router must preserve.
 - **Failure conditions** — observable mistakes that mark the test as failed.
 
-The localization layer reference is in [shared/ZH_TW_LOCALIZATION_AND_WRITING_RULES.md](../../shared/ZH_TW_LOCALIZATION_AND_WRITING_RULES.md); the quality checklist is in [shared/ZH_TW_QUALITY_CHECKLIST.md](../../shared/ZH_TW_QUALITY_CHECKLIST.md).
+The localization layer reference is in [../../shared/locales/zh-TW/WRITING_RULES.md](../../shared/locales/zh-TW/WRITING_RULES.md); the quality checklist is in [../../shared/locales/zh-TW/QUALITY_CHECKLIST.md](../../shared/locales/zh-TW/QUALITY_CHECKLIST.md).
 
 ---
 

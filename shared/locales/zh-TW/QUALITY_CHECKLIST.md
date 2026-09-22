@@ -4,9 +4,9 @@ title: "Taiwan Traditional Chinese Quality Checklist"
 applies_when:
   - Taiwan localization layer is active and a deliverable is being produced
 companion_files:
-  - ZH_TW_LOCALIZATION_AND_WRITING_RULES.md
-  - ZH_TW_TERM_GLOSSARY.md
-  - ZH_TW_STYLE_PROFILES.md
+  - WRITING_RULES.md
+  - TERM_GLOSSARY.md
+  - STYLE_PROFILES.md
 version: 2.0.0
 ---
 
@@ -136,4 +136,4 @@ If a check fails and cannot be resolved:
 
 - Return the deliverable with the heading `PARTIAL — 見下方說明`.
 - Follow with a short note on what was produced, what was skipped, why, and what the user can supply to finish.
-- Apply [../shared/QUALITY_CHECKLISTS.md](../shared/QUALITY_CHECKLISTS.md) plus this checklist together.
+- Apply [../../../shared/QUALITY_CHECKLISTS.md](../../../shared/QUALITY_CHECKLISTS.md) plus this checklist together.

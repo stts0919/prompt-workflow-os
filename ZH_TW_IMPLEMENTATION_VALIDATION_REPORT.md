@@ -38,10 +38,10 @@ The numbers reported by the validator for this run:
 
 #### zh-TW core (4 files)
 
-- `shared/ZH_TW_LOCALIZATION_AND_WRITING_RULES.md`
-- `shared/ZH_TW_TERM_GLOSSARY.md`
-- `shared/ZH_TW_STYLE_PROFILES.md`
-- `shared/ZH_TW_QUALITY_CHECKLIST.md`
+- `shared/locales/zh-TW/WRITING_RULES.md`
+- `shared/locales/zh-TW/TERM_GLOSSARY.md`
+- `shared/locales/zh-TW/STYLE_PROFILES.md`
+- `shared/locales/zh-TW/QUALITY_CHECKLIST.md`
 
 #### zh-TW tests (2 files)
 
@@ -84,7 +84,7 @@ The numbers reported by the validator for this run:
 
 ### Glossary entries
 
-- `shared/ZH_TW_TERM_GLOSSARY.md` contains **156 numbered entries** organized by category:
+- `shared/locales/zh-TW/TERM_GLOSSARY.md` contains **156 numbered entries** organized by category:
   1. Everyday digital and UI terms (40)
   2. AI and technology (25)
   3. Business and strategy (17)
@@ -101,7 +101,7 @@ The numbers reported by the validator for this run:
 
 ### Style profiles
 
-- `shared/ZH_TW_STYLE_PROFILES.md` defines **15 profiles** with the full schema (15 fields per profile + sample paragraph):
+- `shared/locales/zh-TW/STYLE_PROFILES.md` defines **15 profiles** with the full schema (15 fields per profile + sample paragraph):
   1. `zh-tw-conversational-help`
   2. `zh-tw-friendly-professional`
   3. `zh-tw-business-consulting`
@@ -125,7 +125,7 @@ The numbers reported by the validator for this run:
 
 ### Before-and-after examples
 
-- `shared/ZH_TW_LOCALIZATION_AND_WRITING_RULES.md` contains **27 before-and-after examples** (target ≥25) covering router follow-up, workflow explanation, business analysis, consulting, Threads, Instagram, LinkedIn, email, sales, landing page, product description, research finding, report conclusion, project plan, meeting summary, customer support, community announcement, SOP, technical explanation, agent spec, headline rewrite, CTA rewrite, FAQ, newsletter lede, press release, Threads follow-up, newsletter closing.
+- `shared/locales/zh-TW/WRITING_RULES.md` contains **27 before-and-after examples** (target ≥25) covering router follow-up, workflow explanation, business analysis, consulting, Threads, Instagram, LinkedIn, email, sales, landing page, product description, research finding, report conclusion, project plan, meeting summary, customer support, community announcement, SOP, technical explanation, agent spec, headline rewrite, CTA rewrite, FAQ, newsletter lede, press release, Threads follow-up, newsletter closing.
 
 ### Channel-tone rules
 

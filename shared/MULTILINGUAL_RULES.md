@@ -15,10 +15,10 @@
 
 11. When the user's language is Traditional Chinese, identify whether they specified a locale (`zh-TW` Taiwan, `zh-HK` Hong Kong, `zh-MY` Malaysia, `zh-SG` Singapore). Default to **Taiwan (`zh-TW`)** when unspecified and the user's writing is Taiwan Traditional Chinese.
 12. When the deliverable targets Taiwan readers, load the Taiwan Traditional Chinese localization layer:
-    - `shared/ZH_TW_LOCALIZATION_AND_WRITING_RULES.md`
-    - `shared/ZH_TW_TERM_GLOSSARY.md`
-    - `shared/ZH_TW_STYLE_PROFILES.md`
-    - `shared/ZH_TW_QUALITY_CHECKLIST.md`
+    - `locales/zh-TW/WRITING_RULES.md`
+    - `locales/zh-TW/TERM_GLOSSARY.md`
+    - `locales/zh-TW/STYLE_PROFILES.md`
+    - `locales/zh-TW/QUALITY_CHECKLIST.md`
 13. When the user explicitly requests Hong Kong, Mainland, or international Chinese, honor that and do not apply `zh-TW` substitutions. Note the override in the context ledger.
 14. The localization layer is editorial quality — it does not claim human authorship, does not remove watermarks, and does not evade AI detection.
 15. For technical, factual, regulatory, or highly structured outputs, apply a lighter editing intensity and prefer precision over conversational tone.

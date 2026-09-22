@@ -26,10 +26,10 @@ ChatGPT-100-Prompts-Workflow/
 │   ├── OUTPUT_FORMATS.md
 │   ├── QUALITY_CHECKLISTS.md
 │   ├── SOURCE_AND_CITATION_RULES.md
-│   ├── ZH_TW_LOCALIZATION_AND_WRITING_RULES.md
-│   ├── ZH_TW_TERM_GLOSSARY.md
-│   ├── ZH_TW_STYLE_PROFILES.md
-│   └── ZH_TW_QUALITY_CHECKLIST.md
+│   ├── shared/locales/zh-TW/WRITING_RULES.md
+│   ├── shared/locales/zh-TW/TERM_GLOSSARY.md
+│   ├── shared/locales/zh-TW/STYLE_PROFILES.md
+│   └── shared/locales/zh-TW/QUALITY_CHECKLIST.md
 ├── templates/                  (3 files)
 ├── tests/                      (README + 35 cases + 22 zh-tw localization + 22 zh-tw output quality)
 └── scripts/                    (generate + validate)
@@ -41,10 +41,10 @@ File counts are verified by `scripts/validate.py`. The 100-workflow structure is
 
 | File                                                    | Status |
 | ------------------------------------------------------- | ------ |
-| `shared/ZH_TW_LOCALIZATION_AND_WRITING_RULES.md`        | Exists (381 lines). 7 sections + 15 before-and-after examples. Needs to grow to ≥25 examples and add `second_person_policy` / `punctuation_notes` style guidance. |
-| `shared/ZH_TW_TERM_GLOSSARY.md`                         | Exists (236 lines). 145 entries across 10 categories. Needs to grow to ≥150 entries and add 3 categories: education / learning, finance / metrics, social media platforms. |
-| `shared/ZH_TW_STYLE_PROFILES.md`                        | Exists (371 lines). 11 profiles. Needs to grow to ≥15 profiles (split social, add Threads / Instagram / LinkedIn / landing page / long-form / agent spec). |
-| `shared/ZH_TW_QUALITY_CHECKLIST.md`                     | Exists (124 lines). Already has both AI-readable and human-readable layers. Tighten to match new spec exactly. |
+| `shared/locales/zh-TW/WRITING_RULES.md`        | Exists (381 lines). 7 sections + 15 before-and-after examples. Needs to grow to ≥25 examples and add `second_person_policy` / `punctuation_notes` style guidance. |
+| `shared/locales/zh-TW/TERM_GLOSSARY.md`                         | Exists (236 lines). 145 entries across 10 categories. Needs to grow to ≥150 entries and add 3 categories: education / learning, finance / metrics, social media platforms. |
+| `shared/locales/zh-TW/STYLE_PROFILES.md`                        | Exists (371 lines). 11 profiles. Needs to grow to ≥15 profiles (split social, add Threads / Instagram / LinkedIn / landing page / long-form / agent spec). |
+| `shared/locales/zh-TW/QUALITY_CHECKLIST.md`                     | Exists (124 lines). Already has both AI-readable and human-readable layers. Tighten to match new spec exactly. |
 | `tests/language-cases/zh-tw-localization-cases.md`      | Exists. 22 cases. Needs to grow to ≥30. |
 | `tests/workflow-cases/zh-tw-output-quality-cases.md`     | Exists. 22 cases. Needs to grow to ≥25. |
 | `ZH_TW_LOCALIZATION_VALIDATION_REPORT.md`               | Exists. Re-run after expansion. |
@@ -114,12 +114,12 @@ Gaps against the new spec:
 
 ## 7. Duplicate or conflicting language rules
 
-The validator and the file structure both treat `shared/MULTILINGUAL_RULES.md` as the canonical multilingual source. `ZH_TW_LOCALIZATION_AND_WRITING_RULES.md` is a Taiwan-specific implementation that defers to the multilingual rules.
+The validator and the file structure both treat `shared/MULTILINGUAL_RULES.md` as the canonical multilingual source. `shared/locales/zh-TW/WRITING_RULES.md` is a Taiwan-specific implementation that defers to the multilingual rules.
 
 Conflict candidates to watch:
 
-- `shared/MULTILINGUAL_RULES.md` says "Default to zh-TW when Traditional Chinese is unspecified." `ZH_TW_LOCALIZATION_AND_WRITING_RULES.md` repeats the rule. This is consistent. Keep both, but ensure they don't drift.
-- `shared/QUALITY_CHECKLISTS.md` lists "Localization checks"; `ZH_TW_QUALITY_CHECKLIST.md` is more specific. Both are needed. Verify cross-link.
+- `shared/MULTILINGUAL_RULES.md` says "Default to zh-TW when Traditional Chinese is unspecified." `shared/locales/zh-TW/WRITING_RULES.md` repeats the rule. This is consistent. Keep both, but ensure they don't drift.
+- `shared/QUALITY_CHECKLISTS.md` lists "Localization checks"; `shared/locales/zh-TW/QUALITY_CHECKLIST.md` is more specific. Both are needed. Verify cross-link.
 - `templates/WORKFLOW_TEMPLATE.md` currently has `zh_tw_style_profile`. The new spec wants `locale_style_profile_overrides.zh-TW`. The migration plan: support both keys, prefer the new one, fall back to the old one for backward compatibility.
 
 ## 8. Broken or missing relative links
@@ -148,10 +148,10 @@ Strict priority order from the new spec:
 
 1. **Phase 1 — Audit.** This file.
 2. **Phase 2 — zh-TW as the reference locale.**
-   - 2A. Expand `shared/ZH_TW_LOCALIZATION_AND_WRITING_RULES.md` to ≥25 examples + channel-tone table for 15 channels + editing-intensity rules.
-   - 2B. Expand `shared/ZH_TW_TERM_GLOSSARY.md` to ≥150 entries across 13 categories.
-   - 2C. Expand `shared/ZH_TW_STYLE_PROFILES.md` to ≥15 profiles with the full schema (locale, second_person_policy, punctuation_notes).
-   - 2D. Refresh `shared/ZH_TW_QUALITY_CHECKLIST.md` with both layers explicitly labeled.
+   - 2A. Expand `shared/locales/zh-TW/WRITING_RULES.md` to ≥25 examples + channel-tone table for 15 channels + editing-intensity rules.
+   - 2B. Expand `shared/locales/zh-TW/TERM_GLOSSARY.md` to ≥150 entries across 13 categories.
+   - 2C. Expand `shared/locales/zh-TW/STYLE_PROFILES.md` to ≥15 profiles with the full schema (locale, second_person_policy, punctuation_notes).
+   - 2D. Refresh `shared/locales/zh-TW/QUALITY_CHECKLIST.md` with both layers explicitly labeled.
    - 2E. Expand `tests/language-cases/zh-tw-localization-cases.md` to ≥30 cases with the full case schema.
    - 2F. Expand `tests/workflow-cases/zh-tw-output-quality-cases.md` to ≥25 cases.
 3. **Phase 3 — Router integration.** Update `AI_ROUTER.md`, `ROUTING_RULES.md`, `CLARIFICATION_PROTOCOL.md`, `MULTILINGUAL_RULES.md`, `QUALITY_CHECKLISTS.md`, `WORKFLOW_TEMPLATE.md`, `START.md`, `AGENTS.md`, `README.md`. Cover the four Cases A–D.

@@ -273,9 +273,9 @@ This locale pack **does**:
 - [TERM glossary.md](TERM_GLOSSARY.md) — 100+ 条大陆术语 vs 港澳台术语对照。
 - [STYLE_PROFILES.md](STYLE_PROFILES.md) — 10 个 style profile。
 - [QUALITY_CHECKLIST.md](QUALITY_CHECKLIST.md) — 双层品质检查表。
-- [../../ZH_TW_LOCALIZATION_AND_WRITING_RULES.md](../../ZH_TW_LOCALIZATION_AND_WRITING_RULES.md) — `zh-TW` 参考实现。
+- [../zh-TW/WRITING_RULES.md](../zh-TW/WRITING_RULES.md) — `zh-TW` 参考实现。
 - [../README.md](../README.md) — locale 架构总览。
-- [../../ZH_TW_TERM_GLOSSARY.md](../../ZH_TW_TERM_GLOSSARY.md) — `zh-TW` 术语表，作为反向参考。
+- [../zh-TW/TERM_GLOSSARY.md](../zh-TW/TERM_GLOSSARY.md) — `zh-TW` 术语表，作为反向参考。
 
 ## M. Citations
 

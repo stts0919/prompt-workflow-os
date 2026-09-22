@@ -104,7 +104,7 @@ You can read either layer. AI execution prefers the second layer for token effic
 - Models have token limits. For very large inputs, consider splitting the request or attaching summaries.
 - This repository does not include live web search or proprietary data. When current information matters, the AI will tell you verification is needed.
 - The system is intentionally framework-free: no servers, no databases, no plugins to install.
-- The Taiwan Traditional Chinese layer is an editorial quality layer. It does not prove human authorship, remove watermarks, or evade AI detection. See [shared/ZH_TW_LOCALIZATION_AND_WRITING_RULES.md](shared/ZH_TW_LOCALIZATION_AND_WRITING_RULES.md).
+- The Taiwan Traditional Chinese layer is an editorial quality layer. It does not prove human authorship, remove watermarks, or evade AI detection. See [shared/locales/zh-TW/WRITING_RULES.md](shared/locales/zh-TW/WRITING_RULES.md).
 
 ## Contributing or extending
 
@@ -120,7 +120,7 @@ To propose a new playbook, follow [templates/PLAYBOOK_TEMPLATE.md](templates/PLA
 
 Internal specifications are in English. The AI must detect your language and reply in it unless you request another output language. Code, URLs, file paths, IDs, JSON keys, and commands are preserved unchanged.
 
-When the conversation is in Traditional Chinese (or the deliverable targets readers in Taiwan), the AI applies the [Taiwan Traditional Chinese localization rules](shared/ZH_TW_LOCALIZATION_AND_WRITING_RULES.md), the [zh-TW term glossary](shared/ZH_TW_TERM_GLOSSARY.md), a [style profile](shared/ZH_TW_STYLE_PROFILES.md) chosen by content type, and the [zh-TW quality checklist](shared/ZH_TW_QUALITY_CHECKLIST.md). Editorial rewriting improves clarity and naturalness; it does not promise human authorship, does not remove watermarks, and does not evade AI detectors.
+When the conversation is in Traditional Chinese (or the deliverable targets readers in Taiwan), the AI applies the [Taiwan Traditional Chinese localization rules](shared/locales/zh-TW/WRITING_RULES.md), the [zh-TW term glossary](shared/locales/zh-TW/TERM_GLOSSARY.md), a [style profile](shared/locales/zh-TW/STYLE_PROFILES.md) chosen by content type, and the [zh-TW quality checklist](shared/locales/zh-TW/QUALITY_CHECKLIST.md). Editorial rewriting improves clarity and naturalness; it does not promise human authorship, does not remove watermarks, and does not evade AI detectors.
 
 For Hong Kong, Mainland, or international Chinese variants, the user can override the default by stating their preferred locale in the request.
 

@@ -1,6 +1,6 @@
 # Locale Term Glossary Schema
 
-Every locale pack must define its term glossary using this canonical schema. The `zh-TW` glossary under [../ZH_TW_TERM_GLOSSARY.md](../ZH_TW_TERM_GLOSSARY.md) is the reference implementation.
+Every locale pack must define its term glossary using this canonical schema. The `zh-TW` glossary under [zh-TW/TERM_GLOSSARY.md](zh-TW/TERM_GLOSSARY.md) is the reference implementation.
 
 ## Row schema
 

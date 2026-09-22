@@ -39,7 +39,7 @@ activation contract is:
 
 ## Reference
 
-- [`zh-TW` reference implementation](../../ZH_TW_LOCALIZATION_AND_WRITING_RULES.md)
+- [`zh-TW` reference implementation](../zh-TW/WRITING_RULES.md)
   — 結構上的品質標杆。
 - [`FUTURE_LOCALE_EXPANSION_PLAN.md`](../FUTURE_LOCALE_EXPANSION_PLAN.md) section 1
   — zh-CN 計劃的原始範圍。

@@ -64,7 +64,7 @@ Classify every request along these axes. Stash results in the context ledger.
 10. In `guide mode`, validate the workflow path before substantial execution.
 11. In `recommend mode`, present the proposed path and wait for the user.
 12. Execute the workflow's compact AI specification.
-13. Apply the quality checklist from [../shared/QUALITY_CHECKLISTS.md](../shared/QUALITY_CHECKLISTS.md). When the language is Traditional Chinese (or the user asked for a Taiwan-targeted deliverable), also apply [../shared/ZH_TW_LOCALIZATION_AND_WRITING_RULES.md](../shared/ZH_TW_LOCALIZATION_AND_WRITING_RULES.md), the style profile from [../shared/ZH_TW_STYLE_PROFILES.md](../shared/ZH_TW_STYLE_PROFILES.md), and [../shared/ZH_TW_QUALITY_CHECKLIST.md](../shared/ZH_TW_QUALITY_CHECKLIST.md).
+13. Apply the quality checklist from [../shared/QUALITY_CHECKLISTS.md](../shared/QUALITY_CHECKLISTS.md). When the language is Traditional Chinese (or the user asked for a Taiwan-targeted deliverable), also apply [../shared/locales/zh-TW/WRITING_RULES.md](../shared/locales/zh-TW/WRITING_RULES.md), the style profile from [../shared/locales/zh-TW/STYLE_PROFILES.md](../shared/locales/zh-TW/STYLE_PROFILES.md), and [../shared/locales/zh-TW/QUALITY_CHECKLIST.md](../shared/locales/zh-TW/QUALITY_CHECKLIST.md).
 14. End with a structured output (see [../shared/OUTPUT_FORMATS.md](../shared/OUTPUT_FORMATS.md)), labeled assumptions and verification gaps, and one optional next step.
 
 ## Language and locale decision
@@ -76,13 +76,13 @@ Apply this every turn:
 2. Identify the requested output language separately. The output language may differ from the conversation language.
 3. Detect the requested market or locale (e.g., 臺灣、香港、馬來西亞華文市場). When the user does not specify and the user's writing is Taiwan Traditional Chinese, default the market to Taiwan.
 4. If the conversation language is zh-TW or the deliverable targets Taiwan readers, activate the Taiwan Traditional Chinese localization layer:
-   - shared/ZH_TW_LOCALIZATION_AND_WRITING_RULES.md
-   - shared/ZH_TW_TERM_GLOSSARY.md
-   - shared/ZH_TW_STYLE_PROFILES.md
-   - shared/ZH_TW_QUALITY_CHECKLIST.md
+   - ../shared/locales/zh-TW/WRITING_RULES.md
+   - ../shared/locales/zh-TW/TERM_GLOSSARY.md
+   - ../shared/locales/zh-TW/STYLE_PROFILES.md
+   - ../shared/locales/zh-TW/QUALITY_CHECKLIST.md
    Skip the layer for: code, IDs, URLs, brand names, required disclosures, regulated wording.
 5. If the user explicitly requested a non-Taiwan variant (zh-HK, zh-CN, international Traditional), honor that and note it in the context ledger.
-6. Select a zh-TW style profile based on workflow category and channel (see ZH_TW_STYLE_PROFILES.md for the decision rule).
+6. Select a zh-TW style profile based on workflow category and channel (see ../shared/locales/zh-TW/STYLE_PROFILES.md for the decision rule).
 7. For technical, factual, regulatory, or highly structured outputs, use a lighter editing intensity and prioritize precision over conversational naturalness.
 8. Preserve user-specified voice and terminology over default localization preferences.
 ```
@@ -133,7 +133,7 @@ The router must implement these four required cases exactly.
 
 > User asks the AI to "humanize", "evade detectors", or "remove watermarks":
 
-- Explain the boundary per [FALLBACK_RULES.md](FALLBACK_RULES.md) and section A of [../shared/ZH_TW_LOCALIZATION_AND_WRITING_RULES.md](../shared/ZH_TW_LOCALIZATION_AND_WRITING_RULES.md).
+- Explain the boundary per [FALLBACK_RULES.md](FALLBACK_RULES.md) and section A of [../shared/locales/zh-TW/WRITING_RULES.md](../shared/locales/zh-TW/WRITING_RULES.md).
 - Offer the editorial-quality layer as an alternative, not as a bypass.
 - Do not silently comply. Do not claim such capabilities exist.
 
@@ -205,7 +205,7 @@ The router skips the entire `zh-TW` layer when the deliverable's output language
 When the deliverable is in Traditional Chinese, the AI must apply the checklist in this order:
 
 1. [../shared/QUALITY_CHECKLISTS.md](../shared/QUALITY_CHECKLISTS.md) — universal checks.
-2. [../shared/ZH_TW_QUALITY_CHECKLIST.md](../shared/ZH_TW_QUALITY_CHECKLIST.md) — Taiwan-specific checks.
+2. [../shared/locales/zh-TW/QUALITY_CHECKLIST.md](../shared/locales/zh-TW/QUALITY_CHECKLIST.md) — Taiwan-specific checks.
 3. [../shared/OUTPUT_FORMATS.md](../shared/OUTPUT_FORMATS.md) — output skeleton check.
 
 When the deliverable is in Simplified Chinese for Mainland readers, apply

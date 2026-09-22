@@ -86,6 +86,6 @@ Then for each "Editorial-only ✅" candidate that is within the last 30 days, co
 
 ## Cited by
 
-- [`../../ZH_TW_LOCALIZATION_AND_WRITING_RULES.md`](../../ZH_TW_LOCALIZATION_AND_WRITING_RULES.md) — the Taiwan layer points here for cross-language context.
+- [`../zh-TW/WRITING_RULES.md`](../zh-TW/WRITING_RULES.md) — the Taiwan layer points here for cross-language context.
 - [`../FUTURE_LOCALE_EXPANSION_PLAN.md`](../FUTURE_LOCALE_EXPANSION_PLAN.md) — uses the locale-specific lookups as starting hints for future locale work.
 - This file does **not** replace any locale pack. Each locale pack owns its own writing rules, glossary, profiles, and tests.

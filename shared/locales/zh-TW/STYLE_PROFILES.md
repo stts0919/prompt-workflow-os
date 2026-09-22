@@ -4,16 +4,16 @@ title: "Taiwan Traditional Chinese Style Profiles"
 applies_when:
   - Taiwan localization layer is active
 companion_files:
-  - ZH_TW_LOCALIZATION_AND_WRITING_RULES.md
-  - ZH_TW_TERM_GLOSSARY.md
-  - ZH_TW_QUALITY_CHECKLIST.md
+  - WRITING_RULES.md
+  - TERM_GLOSSARY.md
+  - QUALITY_CHECKLIST.md
 version: 2.0.0
 profile_count: 15
 ---
 
 # Taiwan Traditional Chinese Style Profiles
 
-These profiles are reusable writing-style presets. The router selects one based on workflow type, audience, and channel. Authors may override at the workflow level through `localization.locale_style_profile_overrides.zh-TW` in the workflow frontmatter (see [../templates/WORKFLOW_TEMPLATE.md](../templates/WORKFLOW_TEMPLATE.md)).
+These profiles are reusable writing-style presets. The router selects one based on workflow type, audience, and channel. Authors may override at the workflow level through `localization.locale_style_profile_overrides.zh-TW` in the workflow frontmatter (see [../../../templates/WORKFLOW_TEMPLATE.md](../../../templates/WORKFLOW_TEMPLATE.md)).
 
 Every profile uses this schema:
 

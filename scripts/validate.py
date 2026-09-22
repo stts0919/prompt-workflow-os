@@ -274,10 +274,10 @@ def main():
     # === Taiwan Traditional Chinese localization layer checks =================
 
     zh_tw_files = [
-        "shared/ZH_TW_LOCALIZATION_AND_WRITING_RULES.md",
-        "shared/ZH_TW_TERM_GLOSSARY.md",
-        "shared/ZH_TW_STYLE_PROFILES.md",
-        "shared/ZH_TW_QUALITY_CHECKLIST.md",
+        "shared/locales/zh-TW/WRITING_RULES.md",
+        "shared/locales/zh-TW/TERM_GLOSSARY.md",
+        "shared/locales/zh-TW/STYLE_PROFILES.md",
+        "shared/locales/zh-TW/QUALITY_CHECKLIST.md",
         "tests/language-cases/zh-tw-localization-cases.md",
         "tests/workflow-cases/zh-tw-output-quality-cases.md",
         "ZH_TW_LOCALIZATION_VALIDATION_REPORT.md",
@@ -296,10 +296,10 @@ def main():
     # Router files must reference the zh-TW shared rule files.
     ai_router_text = (ROOT / "router/AI_ROUTER.md").read_text()
     for ref in [
-        "ZH_TW_LOCALIZATION_AND_WRITING_RULES.md",
-        "ZH_TW_STYLE_PROFILES.md",
-        "ZH_TW_QUALITY_CHECKLIST.md",
-        "ZH_TW_TERM_GLOSSARY.md",
+        "../shared/locales/zh-TW/WRITING_RULES.md",
+        "../shared/locales/zh-TW/STYLE_PROFILES.md",
+        "../shared/locales/zh-TW/QUALITY_CHECKLIST.md",
+        "../shared/locales/zh-TW/TERM_GLOSSARY.md",
     ]:
         if ref not in ai_router_text:
             all_errors.append(f"router/AI_ROUTER.md missing reference to {ref}")
@@ -322,7 +322,7 @@ def main():
             all_errors.append(f"templates/WORKFLOW_TEMPLATE.md missing '{required_key}'")
 
     # Glossary must contain at least 150 entries.
-    glossary_path = ROOT / "shared/ZH_TW_TERM_GLOSSARY.md"
+    glossary_path = ROOT / "../shared/locales/zh-TW/TERM_GLOSSARY.md"
     if glossary_path.exists():
         glossary_text = glossary_path.read_text()
         entry_count = 0
@@ -335,7 +335,7 @@ def main():
             all_errors.append(f"ZH_TW term glossary has {entry_count} entries, expected at least 150")
 
     # Style profiles must contain at least 15 profiles.
-    profiles_path = ROOT / "shared/ZH_TW_STYLE_PROFILES.md"
+    profiles_path = ROOT / "../shared/locales/zh-TW/STYLE_PROFILES.md"
     if profiles_path.exists():
         profiles_text = profiles_path.read_text()
         profile_ids = set(re.findall(r"id:\s+(zh-tw-[\w-]+)", profiles_text))

@@ -27,10 +27,10 @@ REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 
 LANGUAGE_FILES = {
     "zh-TW": [
-        "shared/ZH_TW_LOCALIZATION_AND_WRITING_RULES.md",
-        "shared/ZH_TW_TERM_GLOSSARY.md",
-        "shared/ZH_TW_STYLE_PROFILES.md",
-        "shared/ZH_TW_QUALITY_CHECKLIST.md",
+        "../../shared/locales/zh-TW/WRITING_RULES.md",
+        "../../shared/locales/zh-TW/TERM_GLOSSARY.md",
+        "../../shared/locales/zh-TW/STYLE_PROFILES.md",
+        "../../shared/locales/zh-TW/QUALITY_CHECKLIST.md",
     ],
     "zh-CN": [
         "shared/locales/zh-CN/WRITING_RULES.md",

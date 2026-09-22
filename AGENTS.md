@@ -100,10 +100,10 @@ Internal instructions remain English. User-facing output mirrors the user's lang
 
 When the conversation language is Traditional Chinese or the deliverable targets readers in Taiwan, the AI must load the Taiwan Traditional Chinese localization layer:
 
-- `shared/ZH_TW_LOCALIZATION_AND_WRITING_RULES.md`
-- `shared/ZH_TW_TERM_GLOSSARY.md`
-- `shared/ZH_TW_STYLE_PROFILES.md`
-- `shared/ZH_TW_QUALITY_CHECKLIST.md`
+- `shared/locales/zh-TW/WRITING_RULES.md`
+- `shared/locales/zh-TW/TERM_GLOSSARY.md`
+- `shared/locales/zh-TW/STYLE_PROFILES.md`
+- `shared/locales/zh-TW/QUALITY_CHECKLIST.md`
 
 Editorial rewriting improves clarity, naturalness, and tone. It does not prove human authorship, does not remove watermarks, and does not evade AI detection. If the user asks for those outcomes, follow `router/FALLBACK_RULES.md` and explain the boundary plainly.
 

@@ -148,7 +148,7 @@ localization:
 Notes for authors:
 
 - `supported_locales` lists the locales this workflow is designed to support. The router uses it to skip localization work for unsupported locales.
-- `default_style_profile` is the chosen profile when the user did not specify a tone. Available profiles live in [../shared/ZH_TW_STYLE_PROFILES.md](../shared/ZH_TW_STYLE_PROFILES.md).
+- `default_style_profile` is the chosen profile when the user did not specify a tone. Available profiles live in [../shared/locales/zh-TW/STYLE_PROFILES.md](../shared/locales/zh-TW/STYLE_PROFILES.md).
 - `locale_style_profile_overrides` maps a locale code to a profile. The router prefers the override when the deliverable's output language (or target market) matches the locale. Future locales (`zh-CN`, `yue-Hant-HK`, `en-US`, `ja-JP`, etc.) plug in here when their locale packs are ready.
 - `editing_intensity` is one of:
   - `none` — no prose edits; protect code, IDs, URLs, brand names, citations.

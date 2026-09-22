@@ -49,7 +49,7 @@ A new locale pack is five files plus a vocabulary / profiles / checklist:
 `LOCALE_ROUTING_RULES.md`, `LOCALE_STYLE_PROFILE_SCHEMA.md`,
 `LOCALE_TERM_GLOSSARY_SCHEMA.md`, and `LOCALE_QUALITY_CHECKLIST_SCHEMA.md`,
 followed by the actual `shared/<CODE>_*.md` content. The reference example is
-[`shared/ZH_TW_LOCALIZATION_AND_WRITING_RULES.md`](shared/ZH_TW_LOCALIZATION_AND_WRITING_RULES.md).
+[`shared/locales/zh-TW/WRITING_RULES.md`](shared/locales/zh-TW/WRITING_RULES.md).
 
 Never claim that the localization layer bypasses AI detection, removes
 watermarks, or proves human authorship. Editorial rewriting improves clarity,

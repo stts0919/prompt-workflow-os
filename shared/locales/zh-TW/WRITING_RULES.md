@@ -9,9 +9,9 @@ applies_when:
 out_of_scope:
   - watermarking, provenance, AI detection, authorship claims
 companion_files:
-  - ZH_TW_TERM_GLOSSARY.md
-  - ZH_TW_STYLE_PROFILES.md
-  - ZH_TW_QUALITY_CHECKLIST.md
+  - TERM_GLOSSARY.md
+  - STYLE_PROFILES.md
+  - QUALITY_CHECKLIST.md
 version: 2.0.0
 ---
 
@@ -26,10 +26,10 @@ The layer exists for one reason: when a user writes in Traditional Chinese — o
 What this layer **does**:
 
 - Improves clarity, naturalness, cultural fit, and editorial quality.
-- Selects regionally preferred terminology from [ZH_TW_TERM_GLOSSARY.md](ZH_TW_TERM_GLOSSARY.md).
-- Adapts tone and structure to workflow type, audience, and channel via [ZH_TW_STYLE_PROFILES.md](ZH_TW_STYLE_PROFILES.md).
+- Selects regionally preferred terminology from [TERM_GLOSSARY.md](TERM_GLOSSARY.md).
+- Adapts tone and structure to workflow type, audience, and channel via [STYLE_PROFILES.md](STYLE_PROFILES.md).
 - Reduces generic AI writing patterns and unsupported hype.
-- Runs a structured review against [ZH_TW_QUALITY_CHECKLIST.md](ZH_TW_QUALITY_CHECKLIST.md) before delivery.
+- Runs a structured review against [QUALITY_CHECKLIST.md](QUALITY_CHECKLIST.md) before delivery.
 
 What this layer **does not do**:
 
@@ -37,7 +37,7 @@ What this layer **does not do**:
 - It does not remove or verify watermarks, provenance, or AI detection signals.
 - It is not positioned as a way to evade AI detectors, bypass content provenance, or fabricate identity.
 
-If the user asks for the above outcomes, follow [../router/FALLBACK_RULES.md](../router/FALLBACK_RULES.md) and explain the boundary plainly. Do not silently comply. Do not claim such capabilities exist after editing.
+If the user asks for the above outcomes, follow [../../../router/FALLBACK_RULES.md](../../../router/FALLBACK_RULES.md) and explain the boundary plainly. Do not silently comply. Do not claim such capabilities exist after editing.
 
 ## B. Automatic activation rules
 
@@ -106,7 +106,7 @@ If prose surrounds protected content, only the prose is rewritten. Examples:
 
 ## E. Taiwan language guidance
 
-Substitutions are **context-sensitive**. The glossary in [ZH_TW_TERM_GLOSSARY.md](ZH_TW_TERM_GLOSSARY.md) documents preferred forms and acceptable alternatives.
+Substitutions are **context-sensitive**. The glossary in [TERM_GLOSSARY.md](TERM_GLOSSARY.md) documents preferred forms and acceptable alternatives.
 
 Illustrative subset:
 
@@ -164,7 +164,7 @@ Each row links to the dedicated style profile. The router chooses the profile ba
 | 14 | AI agent task specification      | `zh-tw-agent-spec-precise`               | Specification    | Very high  | Low        | Strict   |
 | 15 | Customer support reply           | `zh-tw-customer-support`                 | Warm solution    | High       | Medium     | High     |
 
-Per-profile detail (tone, formality, sentence rhythm, first-person policy, rhetorical-question policy, evidence standard, common phrases to avoid, preferred patterns, ending style) is in [ZH_TW_STYLE_PROFILES.md](ZH_TW_STYLE_PROFILES.md).
+Per-profile detail (tone, formality, sentence rhythm, first-person policy, rhetorical-question policy, evidence standard, common phrases to avoid, preferred patterns, ending style) is in [STYLE_PROFILES.md](STYLE_PROFILES.md).
 
 ## G. AI-pattern reduction rules
 
@@ -457,18 +457,18 @@ When activating this layer, the router must:
 
 - The layer never claims to bypass AI detection, remove watermarks, or prove human authorship.
 - The layer never invents personal anecdotes, customer testimonials, or regionally specific statistics.
-- The layer refuses to comply silently when the user asks for the above outcomes; it explains the boundary per [../router/FALLBACK_RULES.md](../router/FALLBACK_RULES.md).
+- The layer refuses to comply silently when the user asks for the above outcomes; it explains the boundary per [../../../router/FALLBACK_RULES.md](../../../router/FALLBACK_RULES.md).
 
 ## L. Reference files
 
-- [ZH_TW_TERM_GLOSSARY.md](ZH_TW_TERM_GLOSSARY.md)
-- [ZH_TW_STYLE_PROFILES.md](ZH_TW_STYLE_PROFILES.md)
-- [ZH_TW_QUALITY_CHECKLIST.md](ZH_TW_QUALITY_CHECKLIST.md)
-- [../tests/language-cases/zh-tw-localization-cases.md](../tests/language-cases/zh-tw-localization-cases.md)
-- [../tests/workflow-cases/zh-tw-output-quality-cases.md](../tests/workflow-cases/zh-tw-output-quality-cases.md)
-- [../shared/locales/README.md](../shared/locales/README.md) — locale architecture reference.
-- [../shared/locales/research/HUMANIZER_REFERENCES.md](../shared/locales/research/HUMANIZER_REFERENCES.md) — cross-language editorial reference list.
+- [TERM_GLOSSARY.md](TERM_GLOSSARY.md)
+- [STYLE_PROFILES.md](STYLE_PROFILES.md)
+- [QUALITY_CHECKLIST.md](QUALITY_CHECKLIST.md)
+- [../../../tests/language-cases/zh-tw-localization-cases.md](../../../tests/language-cases/zh-tw-localization-cases.md)
+- [../../../tests/workflow-cases/zh-tw-output-quality-cases.md](../../../tests/workflow-cases/zh-tw-output-quality-cases.md)
+- [../README.md](../README.md) — locale architecture reference.
+- [../research/HUMANIZER_REFERENCES.md](../research/HUMANIZER_REFERENCES.md) — cross-language editorial reference list.
 
 ## M. Citations
 
-The `zh-TW` layer uses [`kevintsai1202/Humanizer-zh-TW`](https://github.com/kevintsai1202/Humanizer-zh-TW) as editorial inspiration only. We do **not** cite it for any detector-evasion or watermark-removal capability. The full cross-language editorial reference list — including the language-by-language first-look references and the explicit exclusion list for anti-detection bypass tools — is at [../shared/locales/research/HUMANIZER_REFERENCES.md](../shared/locales/research/HUMANIZER_REFERENCES.md).
+The `zh-TW` layer uses [`kevintsai1202/Humanizer-zh-TW`](https://github.com/kevintsai1202/Humanizer-zh-TW) as editorial inspiration only. We do **not** cite it for any detector-evasion or watermark-removal capability. The full cross-language editorial reference list — including the language-by-language first-look references and the explicit exclusion list for anti-detection bypass tools — is at [../research/HUMANIZER_REFERENCES.md](../research/HUMANIZER_REFERENCES.md).

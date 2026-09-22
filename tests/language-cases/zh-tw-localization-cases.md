@@ -12,7 +12,7 @@ These cases exercise the Taiwan Traditional Chinese localization layer at the la
 - **Protected content**
 - **Failure conditions**
 
-User-facing behavior should match [shared/ZH_TW_LOCALIZATION_AND_WRITING_RULES.md](../../shared/ZH_TW_LOCALIZATION_AND_WRITING_RULES.md) and pass [shared/ZH_TW_QUALITY_CHECKLIST.md](../../shared/ZH_TW_QUALITY_CHECKLIST.md).
+User-facing behavior should match [../../shared/locales/zh-TW/WRITING_RULES.md](../../shared/locales/zh-TW/WRITING_RULES.md) and pass [../../shared/locales/zh-TW/QUALITY_CHECKLIST.md](../../shared/locales/zh-TW/QUALITY_CHECKLIST.md).
 
 ---
 
