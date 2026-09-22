@@ -27,8 +27,12 @@ node_modules/
 .env
 .env.local
 
-# Local evaluation scratch (keep out of git; create only when evaluating)
-tests/_evaluations/
+# Recorded model responses (operator-local; contain verbatim model output
+# that may include sensitive / private content — never commit).
+tests/_evaluations/results/**/language-cases.jsonl
+tests/_evaluations/results/**/workflow-cases.jsonl
+tests/_evaluations/results/**/router-cases.jsonl
+tests/_evaluations/results/**/_compare.md
 
 # Logs
 *.log

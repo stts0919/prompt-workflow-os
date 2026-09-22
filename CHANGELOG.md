@@ -28,3 +28,17 @@ Versioning follows [Semantic Versioning](https://semver.org/).
 ### Notes
 
 - Repository is content-complete as of this version. Future versions will preserve backward-compatible IDs and slugs.
+
+## [Unreleased]
+
+### Added
+
+- GitHub Actions CI at `.github/workflows/validate.yml` with three jobs: `validate` (runs `bash tests/validate.sh` on push / PR / manual), `pr-comment` (upserts a status comment on PRs), and `release-readiness` (flags tag-vs-HEAD drift and placeholder-author commits).
+- AI evaluation harness under `tests/_evaluations/`: `harness.py` with `build-prompt` / `run-batch` / `compare` subcommands, `prompt_builder.py` (splits multi-case files on `## N.` headings), `schema.py` (`EvalResult` / `RubricScore` dataclasses), `rubric.md` (5-dimension rubric, acceptance ≥ 4.0 average and no dimension < 3), `operators/manual.md` (paste-into-UI protocol) and `operators/api.md` (SDK pattern). Recorded JSONL files stay operator-local.
+- Cross-language Humanizer references in `shared/locales/research/HUMANIZER_REFERENCES.md` with timestamps and per-locale recency hints (en / zh-TW / zh-CN / ko / ru / multilingual / en-editorial). The corresponding zh-TW writing rules cite `kevintsai1202/Humanizer-zh-TW` as editorial inspiration only.
+- Three new locales documented in `shared/locales/FUTURE_LOCALE_EXPANSION_PLAN.md`: zh-CN, yue-Hant-HK, en-US, en-GB, ja-JP, ko-KR, id-ID, vi-VN. zh-TW remains the reference implementation.
+
+### Changed
+
+- `tests/_evaluations/` switched from fully gitignored to "track the harness, ignore only the recorded JSONL". Recorded model outputs may contain private / sensitive content and must not be committed.
+- `tests/README.md` case-count table refreshed (15 router / 11 language / 11 workflow) and a new "Operator-driven evaluation harness" section added pointing at the harness.
