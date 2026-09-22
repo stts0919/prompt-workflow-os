@@ -1,0 +1,34 @@
+# macOS / OS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+
+# Editors / IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.venv/
+venv/
+.mypy_cache/
+.pytest_cache/
+
+# Node / general
+node_modules/
+.env
+.env.local
+
+# Local evaluation scratch (keep out of git; create only when evaluating)
+tests/_evaluations/
+
+# Logs
+*.log
