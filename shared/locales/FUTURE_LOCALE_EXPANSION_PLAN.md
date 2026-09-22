@@ -33,6 +33,13 @@ The order is chosen by:
   quality gate included. Known limitations: smaller glossary than `zh-TW`,
   fewer before/after examples (target 25 met symbolically, full set planned
   for v1.2).
+- ✅ **yue-Hant-HK** — Implemented in `shared/locales/yue-Hant-HK/`
+  (2026-09-22). Matches `zh-TW` / `zh-CN` structure: README, WRITING_RULES,
+  TERM_GLOSSARY (12 categories, ~60 entries + Cantonese colloquial
+  vocab), STYLE_PROFILES (11 profiles for HK channels — WhatsApp / FB /
+  Instagram / LIHKG / LinkedIn / email / legal / customer support),
+  QUALITY_CHECKLIST (dual layer). HK IT / consumer terminology and
+  Cantonese 口語 handling documented. v1.2 baseline.
 
 ## Per-locale plans
 
