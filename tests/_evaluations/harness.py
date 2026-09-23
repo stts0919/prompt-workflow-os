@@ -1,34 +1,36 @@
-"""AI evaluation harness — run test cases against a model and record results.
+"""AI evaluation harness — build prompts from test cases and write stub records.
 
 Usage:
 
-    # Manual (paste into a chat UI)
+    # Manual (paste into a chat UI; this is the only supported path)
     python3 harness.py build-prompt tests/language-cases/zh-tw-localization-cases.md --case 1 \
         --output /tmp/case-01-prompt.txt
 
-    # API-driven
-    export PROMPT_WF_OPENAI_API_KEY=...
-    export PROMPT_WF_ANTHROPIC_API_KEY=...
-    export PROMPT_WF_GOOGLE_API_KEY=...
+    # Build stub JSONL for a batch (one stub row per case, empty response)
     python3 harness.py run-batch \
-        --model gpt-5.6-luna \
+        --model gpt-6-sol \
         --cases-glob 'tests/language-cases/zh-tw-localization-cases.md' \
-        --run-id 2026-Q3/gpt-5.6-luna
+        --run-id 2026-Q3/gpt-6-sol
 
-    # Compare across models
+    # Compare across models (after at least two runs are filled in)
     python3 harness.py compare \
-        --runs 2026-Q3/gpt-5.6-luna,2026-Q3/claude-opus-5,2026-Q3/gemini-3.8-flash \
+        --runs 2026-Q3/gpt-6-sol,2026-Q3/claude-opus-5,2026-Q3/gemini-3.8-flash \
         --out tests/_evaluations/results/2026-Q3/_compare.md
 
-The harness does **not** call any model itself. It only builds prompts and writes
-records. Calling APIs is left to operators because:
+The harness does **not** call any model itself — neither via API nor via any
+other means. Operators evaluate prompts through their own chat subscription
+(ChatGPT Plus / Pro, Claude Free / Pro / Max, Gemini AI Pro / Ultra, etc.)
+and paste the response back into the JSONL. See
+`./operators/manual.md` for the full protocol. The project scope explicitly
+excludes API integration; see `shared/MODELS_OF_RECORD.md` § "Architecture".
 
-1. The models the user wants to evaluate change frequently. The harness is
-   model-agnostic; only the operator knows the current model name and API.
-2. Many teams prefer to paste prompts into Claude.ai / ChatGPT / Gemini
-   rather than wire up API keys in CI.
-3. API costs are non-trivial. Letting an operator trigger a batch keeps
-   cost decisions human-controlled.
+Reasons the harness never calls a model:
+
+1. The project scope is subscription-only — no API key handling exists
+   anywhere in the codebase.
+2. Models and surfaces change frequently; the harness stays model-agnostic.
+3. The recommended surface is the chat UI (paste-into-UI), so a scripted
+   API client would not match the recommended workflow anyway.
 """
 
 from __future__ import annotations
@@ -210,14 +212,14 @@ def main() -> int:
 
     p2 = sub.add_parser("run-batch", help="build all prompts and write a stub JSONL")
     p2.add_argument("--cases-glob", required=True, dest="cases_glob")
-    p2.add_argument("--run-id", required=True, help="e.g. 2026-Q3/gpt-5.6-luna")
-    p2.add_argument("--model", required=True, help="e.g. gpt-5.6-luna")
+    p2.add_argument("--run-id", required=True, help="e.g. 2026-Q3/gpt-6-sol")
+    p2.add_argument("--model", required=True, help="e.g. gpt-6-sol")
     p2.add_argument("--model-version", default="", dest="model_version")
     p2.set_defaults(func=cmd_run_batch)
 
     p3 = sub.add_parser("compare", help="compare rubric averages across runs")
     p3.add_argument("--runs", required=True,
-                    help="comma-separated run ids (e.g. 2026-Q3/gpt-5.6-luna,2026-Q3/claude-opus-5)")
+                    help="comma-separated run ids (e.g. 2026-Q3/gpt-6-sol,2026-Q3/claude-opus-5)")
     p3.add_argument("--out", help="output path (default stdout)")
     p3.set_defaults(func=cmd_compare)
 

@@ -7,9 +7,14 @@ For each model listed in `cases.json`, this script:
 3. Writes a stub JSONL per model under
    `tests/_evaluations/results/2026-Q3/smoke/<model>/smoke-cases.jsonl`.
 
-Each stub row carries the prompt but an empty `response` field. The operator
-runs each prompt against the real model and pastes the response back into
-the same row. Operator also fills `rubric` per `tests/_evaluations/rubric.md`.
+Each stub row carries the prompt but an empty `response` field. The
+operator runs each prompt against the real model via their own chat
+subscription (ChatGPT / Claude.ai / Gemini) and pastes the response
+back into the same row. Operator also fills `rubric` per
+`tests/_evaluations/rubric.md`.
+
+The project does not use any model API; see
+`../../../../shared/MODELS_OF_RECORD.md` § "Architecture".
 
 Usage:
 
@@ -17,7 +22,7 @@ Usage:
     python3 build.py
 
     # build stubs for one model only
-    python3 build.py --model gpt-5.6-luna
+    python3 build.py --model gpt-6-sol
 
     # dry-run: print prompt statistics, do not write files
     python3 build.py --dry-run
@@ -148,7 +153,8 @@ def main() -> int:
     print()
     print("Operator workflow:")
     print("  1. Open each JSONL row at the file paths above.")
-    print("  2. Paste `prompt` into the model UI / API.")
+    print("  2. Paste `prompt` into your chat subscription UI")
+    print("     (ChatGPT / Claude.ai / Gemini — no API).")
     print("  3. Paste `response` back into the same row.")
     print("  4. Fill `rubric` per tests/_evaluations/rubric.md (5 dimensions).")
     print("  5. Update `locale_actual`, `profile_actual`,")
@@ -158,7 +164,8 @@ def main() -> int:
           "tests/_evaluations/results/2026-Q3/smoke/<model>/smoke-cases.jsonl")
     print("  8. Compare across models with:")
     print("       python3 tests/_evaluations/harness.py compare \\")
-    print("         --runs 2026-Q3/smoke/gpt-5.6-luna,2026-Q3/smoke/claude-opus-5,2026-Q3/smoke/gemini-3.8-flash")
+    print("         --runs 2026-Q3/smoke/gpt-6-sol,2026-Q3/smoke/gpt-6-luna,"
+          "2026-Q3/smoke/claude-opus-5,2026-Q3/smoke/gemini-3.8-flash")
     return 0
 
 

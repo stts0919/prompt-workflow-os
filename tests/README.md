@@ -61,21 +61,28 @@ The harness:
   `tests/_evaluations/results/<YYYY-Qn>/<model>/<kind>-cases.jsonl`,
 - produces a markdown comparison across runs via `harness.py compare`.
 
-It does **not** call any model API itself. API costs and key handling stay with
-the operator. Models the user is currently evaluating with:
+It does **not** call any model API itself — the project never uses API
+integration. Operators evaluate prompts by pasting them into their own
+chat subscription (ChatGPT Plus / Pro, Claude Free / Pro / Max, Gemini
+AI Pro / Ultra). The recommended models the user is currently evaluating
+with:
 
-- `gpt-5.6-luna` / `gpt-5.6-terra` / `gpt-5.6-sol`
-- `gpt-6-astra`
+- `gpt-6-sol` / `gpt-6-luna` (the `gpt-5.6-*` family and `gpt-6-astra`
+  were deprecated 2026-09-23)
 - `claude-sonnet-5` / `claude-opus-5` / `claude-fable-5-1`
 - `gemini-3.8-flash`
 
-The canonical model IDs, release dates, context windows, and current pricing
-live in [`../shared/MODELS_OF_RECORD.md`](../shared/MODELS_OF_RECORD.md)
-(last verified 2026-09-22).
+These are recommendations, not API integrations — operators bring their
+own subscription tier. The canonical model IDs, release dates, and
+subscription surfaces live in
+[`../shared/MODELS_OF_RECORD.md`](../shared/MODELS_OF_RECORD.md)
+(last verified 2026-09-23).
 
-See `tests/_evaluations/operators/manual.md` for the paste-into-UI protocol and
-`tests/_evaluations/operators/api.md` for the API client pattern. The rubric
-the operator scores against lives at `tests/_evaluations/rubric.md`.
+The only operator protocol the project supports is
+`tests/_evaluations/operators/manual.md` (paste-into-UI).
+`tests/_evaluations/operators/api.md` is deprecated and kept only for
+historical reference. The rubric the operator scores against lives at
+`tests/_evaluations/rubric.md`.
 
 To initialize the directory on a fresh clone, copy the harness from the team's
 archive or recreate it from the schema described in
@@ -89,7 +96,7 @@ tests/_evaluations/
 ├── schema.py             ← EvalResult / RubricScore dataclasses
 ├── rubric.md             ← scoring rubric
 ├── operators/
-│   ├── manual.md         ← paste-into-UI protocol
-│   └── api.md            ← API client pattern
+│   ├── manual.md         ← paste-into-UI protocol (the supported path)
+│   └── api.md            ← API client pattern — DEPRECATED, not used
 └── results/              ← gitignored; recorded runs go here
 ```

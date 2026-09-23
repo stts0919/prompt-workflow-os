@@ -1,19 +1,24 @@
 # Smoke Eval Round — 2026-Q3
 
-First operator-driven eval round using the `tests/_evaluations/` harness
-against `gpt-5.6-luna`, `claude-opus-5`, and `gemini-3.8-flash`.
+First operator-driven eval round using the `tests/_evaluations/`
+harness. **Subscription-only** — the project does not use any model
+API. Operators run the prompts in their own chat UIs (ChatGPT Plus /
+Pro, Claude Pro / Max, Gemini AI Pro / Ultra) and paste responses
+back into the JSONL. See [`../../../README.md`](../../../README.md) and
+[`../../../../shared/MODELS_OF_RECORD.md`](../../../../shared/MODELS_OF_RECORD.md)
+for the full architecture rationale.
 
 ## Goal
 
 Produce the **first concrete evidence** that `prompt-workflow-os` v1.2.0
-works against the three model families the user evaluates with. The round
-is intentionally small (9 cases) so an operator can finish it in one
-session without burning serious API budget.
+works against the recommended model families. The round is
+intentionally small (9 cases × 4 models) so an operator can finish it
+in one session against their subscription tier.
 
 ## Coverage
 
-One case per locale pack. Each case targets the locale's most distinctive
-behavior:
+One case per locale pack. Each case targets the locale's most
+distinctive behavior:
 
 | Smoke ID | Locale | Profile | Source case | What it exercises |
 | --- | --- | --- | --- | --- |
@@ -26,6 +31,22 @@ behavior:
 | `ko-KR-10` | ko-KR | `ko-kr-email-formal` | locale-coverage #10 | Korean 합쇼체 register. |
 | `id-ID-12` | id-ID | `id-id-whatsapp-casual` | locale-coverage #12 | ID casual vs formal `kamu`/`Anda`. |
 | `vi-VN-14` | vi-VN | `vi-vn-zalo-casual` | locale-coverage #14 | Vietnamese diacritics + casual particles. |
+
+## Models (recommended, subscription-only)
+
+| Model | Subscription surface |
+| --- | --- |
+| `gpt-6-sol` | ChatGPT Plus / Pro / Business / Enterprise |
+| `gpt-6-luna` | ChatGPT Plus / Pro / Business / Enterprise |
+| `claude-opus-5` | Claude Max / Team / Enterprise / Claude Code |
+| `gemini-3.8-flash` | Gemini app (AI Pro / Ultra), Google AI Studio |
+
+(`gpt-5.6-*` and `gpt-6-astra` are deprecated as of 2026-09-23 and
+should not be used for new eval rounds.)
+
+If your tier doesn't include a recommended model (e.g. free Claude
+tier doesn't have Opus 5), substitute the closest available tier and
+record the actual model ID in the JSONL `notes` field.
 
 ## How to run
 
@@ -41,44 +62,42 @@ Expected: `OK — all locales load their LANGUAGE_FILES layer.`
 ### 1. Generate stub JSONL files
 
 ```bash
-# Build stubs for all 3 models at once.
+# Build stubs for all 4 models at once.
 python3 tests/_evaluations/runs/2026-Q3-smoke/build.py
 ```
 
-This writes three files:
+This writes four files:
 
-- `tests/_evaluations/results/2026-Q3/smoke/gpt-5.6-luna/smoke-cases.jsonl`
+- `tests/_evaluations/results/2026-Q3/smoke/gpt-6-sol/smoke-cases.jsonl`
+- `tests/_evaluations/results/2026-Q3/smoke/gpt-6-luna/smoke-cases.jsonl`
 - `tests/_evaluations/results/2026-Q3/smoke/claude-opus-5/smoke-cases.jsonl`
 - `tests/_evaluations/results/2026-Q3/smoke/gemini-3.8-flash/smoke-cases.jsonl`
 
 Each file has 9 rows. Each row carries the `prompt` text and an empty
 `response` field. **Do not commit these files** — they are
-gitignored (`.gitignore` line 32–35 cover the `results/**/` pattern).
+gitignored.
 
-### 2. Pick your operator mode
-
-#### Option A — Manual (paste into chat UI)
+### 2. Paste prompts into your chat UI (only supported mode)
 
 For each model file:
 
 1. Open `tests/_evaluations/results/2026-Q3/smoke/<model>/smoke-cases.jsonl`
 2. For each row:
-   - Copy the value at `prompt` into a new chat with the target model.
-   - Copy the model's reply into `response`.
+   - Copy the value at `prompt` into a new chat in your subscription
+     UI (ChatGPT, Claude.ai, Gemini app — whichever tier matches the
+     model).
+   - Copy the model's reply into `response` (verbatim).
    - Score per `tests/_evaluations/rubric.md` (5 dimensions, 1–5 each).
    - Update `locale_actual`, `profile_actual`,
      `editing_intensity_actual` based on what the model produced.
    - Note any `failure_conditions_triggered` from the case file.
+   - If your subscription tier didn't include the recommended model,
+     record what you used in `notes` (e.g. "used Sonnet 5 because Opus
+     5 requires Max tier").
 3. Save the JSONL.
 
-Detailed paste-into-UI protocol: `tests/_evaluations/operators/manual.md`.
-
-#### Option B — API-driven
-
-Write a tiny client loop that reads the JSONL, calls the model, and
-writes back the response + rubric fields. The schema lives in
-`tests/_evaluations/schema.py`. Reference pattern:
-`tests/_evaluations/operators/api.md`.
+Detailed paste-into-UI protocol:
+`tests/_evaluations/operators/manual.md`.
 
 ### 3. Run the auto-scorer
 
@@ -106,7 +125,7 @@ It writes `<input>.auto-verdict.jsonl` next to the source file. It
 
 ```bash
 python3 tests/_evaluations/harness.py compare \
-    --runs 2026-Q3/smoke/gpt-5.6-luna,2026-Q3/smoke/claude-opus-5,2026-Q3/smoke/gemini-3.8-flash \
+    --runs 2026-Q3/smoke/gpt-6-sol,2026-Q3/smoke/gpt-6-luna,2026-Q3/smoke/claude-opus-5,2026-Q3/smoke/gemini-3.8-flash \
     --out tests/_evaluations/results/2026-Q3/smoke/_compare.md
 ```
 
@@ -114,21 +133,20 @@ Output is a small markdown table: rows are case IDs, columns are models,
 cells are `rubric_average`. Models with empty cells didn't have data
 yet for that case.
 
-## Cost estimate
+## Cost
 
-| Model | Input tokens (approx) | Output tokens (approx) | Per-round cost |
-| --- | --- | --- | --- |
-| `gpt-5.6-luna` | ~600K | ~5K | ~$3 (promo through 2026-11-21: ~$2.5) |
-| `claude-opus-5` | ~600K | ~5K | ~$10–$15 |
-| `gemini-3.8-flash` | ~600K | ~5K | < $1 |
+**No direct cost.** You evaluate against your own chat subscription;
+no API token billing applies. The prompt is large because it embeds
+the full locale layer (so the model can apply style profiles and
+glossary terms correctly). Subscription tiers generally have generous
+message / context budgets; if your tier caps input length, see the
+split-into-multi-message note below.
 
-(Pricing snapshots are best-effort; confirm against each vendor's pricing
-page before running.)
+If your tier refuses to accept the full ~30K–60K-char prompt:
 
-The prompts are large because they embed the full locale layer (so the
-model can apply style profiles and glossary terms correctly). For a
-real product you'd want to do retrieval over the layer files instead of
-shipping them in every prompt — but for a smoke round this is fine.
+- Split the prompt into 2–3 messages: layer + case header, then the
+  case body, then a final "now produce the deliverable" instruction.
+- Record the split in `notes`.
 
 ## Customising the manifest
 
@@ -150,12 +168,9 @@ scratch; nothing is appended.
 Everything under `tests/_evaluations/results/` is gitignored. Don't
 commit:
 
-- The stub JSONL files (contain prompts only — not sensitive, but the
-  convention is "results are operator-local").
-- The filled-in JSONL files (contain verbatim model output — may leak
-  private content from the model's response).
-- The `_compare.md` output (it's a derived artifact, regenerate when
-  needed).
+- The stub JSONL files.
+- The filled-in JSONL files.
+- The `_compare.md` output.
 
 If you want to share a result set, copy it to a separate scratch
 location outside the repo first.

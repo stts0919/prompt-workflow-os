@@ -101,14 +101,18 @@ the user has recorded in the context ledger. This is enforced at three
 levels: the writing rules, the quality checklist, and the rubric's
 `protected_content_preservation` dimension (1–5 score).
 
-### 6. Evaluation is operator-driven on purpose.
+### 6. Evaluation is operator-driven on purpose, and is subscription-only.
 
 [`tests/_evaluations/`](tests/_evaluations/) ships no API client, no
-auto-scorer, no detector. The harness builds JSONL stubs; an operator runs
-the prompts (manually or with their own SDK); a human scores per
+auto-scorer, no detector, and no API key handling of any kind. The
+project explicitly does not use vendor APIs; operators run the
+prompts in their own chat subscription (ChatGPT Plus / Pro, Claude
+Free / Pro / Max, Gemini AI Pro / Ultra). The harness builds JSONL
+stubs; the operator pastes each prompt into their chat UI, pastes
+the response back, and scores per
 [`tests/_evaluations/rubric.md`](tests/_evaluations/rubric.md). Reasons:
 
-- Costs are human-controlled.
+- Subscription billing is the user's choice, not the project's.
 - A 100 % pass-rate batch is suspicious — partial results are normal.
 - Auto-scorers do not catch subtle failures (e.g. wrong tone despite
   correct content) that a human reviewer sees immediately.

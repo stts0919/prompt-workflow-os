@@ -6,10 +6,48 @@ Versioning follows [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
-### Planned
+### Changed
+
+- **Models of Record refresh (subscription-only).** OpenAI lineup updated
+  from the `gpt-5.6-*` family + `gpt-6-astra` to `gpt-6-sol` (flagship)
+  + `gpt-6-luna` (balanced). `gpt-5.6-*` and `gpt-6-astra` are marked
+  deprecated as of 2026-09-23 and remain visible only as historical
+  reference. Anthropic and Google lineups unchanged. `shared/MODELS_OF_RECORD.md`
+  rewritten to remove all "API model ID" and pricing columns — the file
+  is now a recommendation list of subscription-reachable models, not a
+  billing reference.
+- **Architecture: subscription-only, no API.** `prompt-workflow-os`
+  never calls any model API. This is a deliberate scope choice, set at
+  project inception, and now made explicit across the documentation:
+  - `shared/MODELS_OF_RECORD.md` gains an "Architecture — read this
+    first" section explaining the rationale.
+  - `tests/_evaluations/README.md` and
+    `tests/_evaluations/results/README.md` clarify subscription-only
+    operation.
+  - `tests/_evaluations/operators/api.md` marked **DEPRECATED, NOT USED**
+    and kept for historical reference only.
+  - `tests/_evaluations/operators/manual.md` reframed as the only
+    supported operator protocol (was previously one of two options).
+  - `tests/_evaluations/harness.py` docstring drops API key env var
+    references; documents subscription-only architecture.
+  - `tests/_evaluations/schema.py`, `tests/_evaluations/auto_scorer.py`,
+    `tests/README.md`, all updated for the new model IDs and the
+    subscription-only posture.
+- **2026-Q3 smoke round expanded to 4 models.** `cases.json` replaces
+  the single `gpt-5.6-luna` entry with `gpt-6-sol` + `gpt-6-luna`
+  (OpenAI lineup doubled). The round is now 9 cases × 4 models = 36
+  stub prompts. Cost section removed (subscription covers it).
+
+### Added
 
 - First operator-driven smoke eval round using the `tests/_evaluations/`
-  harness against `gpt-5.6-luna`, `claude-opus-5`, and `gemini-3.8-flash`.
+  harness against the 4 recommended models (ChatGPT / Claude.ai /
+  Gemini). 9 representative cases, one per locale pack, prepared
+  via `tests/_evaluations/runs/2026-Q3-smoke/` (manifest + builder +
+  path regression check + operator README).
+
+### Planned
+
 - GitHub Release for `v1.2.0` once a smoke-round result set is committed.
 - SPEC.md deferred item: per-channel `editing_intensity` overrides,
   revisited only after per-channel failure evidence exists.

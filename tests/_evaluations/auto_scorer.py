@@ -21,7 +21,7 @@ needs a closer look. It never overwrites the operator's `rubric` scores.
 Run from repo root:
 
     python3 tests/_evaluations/auto_scorer.py \
-        tests/_evaluations/results/2026-Q3/gpt-5.6-luna/language-cases.jsonl
+        tests/_evaluations/results/2026-Q3/gpt-6-sol/language-cases.jsonl
 
 Optional flags:
 

@@ -1,38 +1,60 @@
 # AI Evaluation Harness
 
-This directory holds the evaluation harness for the `prompt-workflow-os` repository. It tests how well real models behave when given the repository's prompts and routing logic.
+This directory holds the evaluation harness for the `prompt-workflow-os`
+repository. It tests how well real models behave when given the
+repository's prompts and routing logic.
+
+## Architecture — read this first
+
+`prompt-workflow-os` **never** calls any model API. The harness builds
+prompts and writes stub JSONL files; operators paste each prompt into
+their own chat subscription (ChatGPT Plus / Pro, Claude Free / Pro /
+Max, Gemini AI Pro / Ultra) and paste the response back into the JSONL.
+See [`../../shared/MODELS_OF_RECORD.md`](../../shared/MODELS_OF_RECORD.md)
+§ "Architecture" for the full rationale.
+
+The only operator protocol the project supports is
+[`operators/manual.md`](operators/manual.md). The `operators/api.md`
+file is **deprecated** — kept for transparency only.
 
 ## What this is
 
-- A **prompt builder** that turns each test case into a single prompt by combining:
+- A **prompt builder** that turns each test case into a single prompt
+  by combining:
   - the case's expected locale / profile / intensity,
-  - the relevant `zh-TW` layer files (when the case requires Taiwan),
+  - the relevant locale-layer files (when the case requires one),
   - the relevant workflow file (when the case selects a workflow).
-- A **schema** (`schema.py`) for recording each result as one JSONL line.
-- A **runner** (`harness.py`) that writes stub JSONL files with prompts filled in.
-- An **operator protocol** for both manual paste-into-UI runs (`operators/manual.md`) and API-driven runs (`operators/api.md`).
-- A **rubric** (`rubric.md`) that defines how a human (or future auto-scorer) scores each result.
+- A **schema** (`schema.py`) for recording each result as one JSONL
+  line.
+- A **runner** (`harness.py`) that writes stub JSONL files with prompts
+  filled in.
+- An **operator protocol** (`operators/manual.md`) for paste-into-UI
+  runs. `operators/api.md` is deprecated.
+- A **rubric** (`rubric.md`) that defines how a human (or future
+  auto-scorer) scores each result.
 
 ## What this is NOT
 
-- Not a model client. The harness never calls any API itself.
+- Not a model client. The harness never calls any API or chat surface.
 - Not an automatic scorer. The rubric is a human-judgment tool.
-- Not a detector. We do not score "human-likeness" against any detector.
-- Not a watermark remover. We do not test removal of any provenance signal.
+- Not a detector. We do not score "human-likeness" against any
+  detector.
+- Not a watermark remover. We do not test removal of any provenance
+  signal.
 
 ## Models the user is evaluating
 
-The current target list (subject to change):
+The current target list (subject to change; see
+[`../../shared/MODELS_OF_RECORD.md`](../../shared/MODELS_OF_RECORD.md)
+for full details):
 
-- **GPT-5.6 Luna / Terra / Sol + GPT-6 Astra** (OpenAI-side priority models).
-- **Claude Sonnet / Opus / Fable 5+** (Anthropic-side priority models).
-- **Gemini 3.8 Flash** (the only Gemini model the user evaluates for now).
+- **OpenAI**: `gpt-6-sol`, `gpt-6-luna` (the `gpt-5.6-*` family and
+  `gpt-6-astra` are deprecated as of 2026-09-23).
+- **Anthropic**: `claude-opus-5`, `claude-sonnet-5`, `claude-fable-5-1`.
+- **Google**: `gemini-3.8-flash`.
 
-The canonical model IDs, release dates, context windows, and current pricing
-live in [`../../shared/MODELS_OF_RECORD.md`](../../shared/MODELS_OF_RECORD.md)
-(last verified 2026-09-22). When you add a model, update that file first,
-then update `operators/api.md`'s cost table and "Recommended client pattern"
-example.
+These are recommendations only. Bring whatever subscription tier you
+have and record the model ID + tier in the JSONL.
 
 ## How to run
 
@@ -43,29 +65,35 @@ example.
 python3 tests/_evaluations/harness.py build-prompt \
     tests/language-cases/zh-tw-localization-cases.md --case 1
 
-# Build prompts for every case in the file
+# Build prompts for every case in the file (stub JSONL)
 python3 tests/_evaluations/harness.py run-batch \
     --cases-glob 'tests/language-cases/zh-tw-localization-cases.md' \
-    --run-id 2026-Q3/my-model \
-    --model my-model
+    --run-id 2026-Q3/<model-id> \
+    --model <model-id>
 ```
 
-### 2. Capture responses
+### 2. Capture responses (paste-into-UI)
 
-Either:
+For each stub row:
 
-- **Manual** — open each line, paste `prompt` into Claude.ai / ChatGPT / Gemini, paste `response` back. See `operators/manual.md`.
-- **API** — write your own client loop that calls the model and fills `response`. See `operators/api.md`.
+- Copy `prompt` into your chat UI (ChatGPT / Claude.ai / Gemini).
+- Copy the model's reply into `response` (verbatim).
+- Score per `rubric.md` (5 dimensions, 1–5 each).
+- Fill `locale_actual`, `profile_actual`,
+  `editing_intensity_actual`, and any `failure_conditions_triggered`.
 
-### 3. Score and commit
+See [`operators/manual.md`](operators/manual.md) for the full step-by-step.
 
-Fill in `rubric` per `rubric.md`. Commit the file under `results/<run-id>/<case-kind>.jsonl`.
+### 3. Score and commit (or keep local)
+
+Fill in `rubric` per `rubric.md`. The JSONL file lives under
+`results/<run-id>/<case-kind>.jsonl` and is gitignored.
 
 ### 4. Compare across runs
 
 ```bash
 python3 tests/_evaluations/harness.py compare \
-    --runs 2026-Q3/gpt-5.6-luna,2026-Q3/claude-opus-5,2026-Q3/gemini-3.8-flash \
+    --runs 2026-Q3/gpt-6-sol,2026-Q3/claude-opus-5,2026-Q3/gemini-3.8-flash \
     --out tests/_evaluations/results/2026-Q3/_compare.md
 ```
 
@@ -79,15 +107,16 @@ tests/_evaluations/
 ├── schema.py                  ← EvalResult / RubricScore dataclasses
 ├── rubric.md                  ← how to score
 ├── operators/
-│   ├── manual.md              ← paste-into-UI protocol
-│   └── api.md                 ← API client protocol + cost estimate
+│   ├── manual.md              ← paste-into-UI protocol (the supported path)
+│   └── api.md                 ← API client protocol — DEPRECATED, not used
 ├── results/
 │   ├── README.md              ← how to read result files
 │   └── 2026-Q3/
 │       ├── README.md          ← batch summary (run-by-run notes)
-│       ├── gpt-5.6-luna/
-│       │   ├── language-cases.jsonl     ← one record per case
+│       ├── gpt-6-sol/
+│       │   ├── language-cases.jsonl     ← one record per case (operator fills)
 │       │   └── workflow-cases.jsonl
+│       ├── gpt-6-luna/
 │       ├── claude-opus-5/
 │       └── gemini-3.8-flash/
 └── scripts/                   ← operator helpers (one-off or recurring)
@@ -95,7 +124,9 @@ tests/_evaluations/
 
 ## Sample stub file
 
-`harness.py run-batch` writes a stub JSONL with empty `response` fields and a note that says "stub — operator must fill response and rubric". This is the canonical shape for the final record.
+`harness.py run-batch` writes a stub JSONL with empty `response` fields
+and a note that says "stub — operator must fill response and rubric".
+This is the canonical shape for the final record.
 
 A stub line looks like:
 
@@ -129,13 +160,22 @@ A stub line looks like:
 
 ## How this fits the rest of the repository
 
-- `scripts/validate.py` is the **structural validator** — pure regex and file-shape checks.
-- `tests/_evaluations/` is the **behavioral evaluator** — needs humans or paid APIs to run.
-- Both are part of the v1.0.0 release. The CI in `.github/workflows/validate.yml` runs only the structural validator (it does not call any model API).
-- The behavioral evaluator is meant to run periodically, not on every PR.
+- `scripts/validate.py` is the **structural validator** — pure regex and
+  file-shape checks.
+- `tests/_evaluations/` is the **behavioral evaluator** — needs humans
+  with chat subscriptions to run.
+- Both are part of the v1.0.0 release. The CI in
+  `.github/workflows/validate.yml` runs only the structural validator.
+- The behavioral evaluator is meant to run periodically, not on every
+  PR.
 
 ## Limits
 
-- The harness does not detect whether the model is a "good" Taiwanese writer beyond the case's failure conditions.
-- The rubric is opinionated. Different teams will score differently. Run the same batch twice with two operators and compare scores for an inter-rater check.
-- No test is ever truly complete; new failure modes emerge. Add new failure conditions to existing cases when you find them, or add new cases.
+- The harness does not detect whether the model is a "good" Taiwanese
+  writer beyond the case's failure conditions.
+- The rubric is opinionated. Different teams will score differently.
+  Run the same batch twice with two operators and compare scores for
+  an inter-rater check.
+- No test is ever truly complete; new failure modes emerge. Add new
+  failure conditions to existing cases when you find them, or add new
+  cases.

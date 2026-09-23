@@ -1,123 +1,113 @@
 # Models of Record
 
-This document tracks the AI models that the `prompt-workflow-os` maintainers
-have evaluated against. The list is informational — `prompt-workflow-os` is
-model-agnostic, and any sufficiently capable frontier model can run the
-workflows. Use this list to:
+This document lists the AI models the `prompt-workflow-os` maintainers
+**recommend** for evaluating the system's workflows. It is a
+recommendation list, **not** an API integration.
 
-- know which models were used to baseline the system,
-- cross-reference API model IDs and current pricing,
+## Architecture — read this first
+
+`prompt-workflow-os` **never** calls any model API itself. Users run the
+prompts in their own chat subscription — ChatGPT Plus / Pro / Business,
+Claude Free / Pro / Max / Team, Gemini app for AI Pro / Ultra, or any
+other surface that supports the recommended models. The maintainers'
+role is to recommend which models are worth evaluating against; the
+operator's role is to bring their own subscription.
+
+This is a deliberate scope choice, set at project inception:
+
+- **No API client ships in the harness.** `tests/_evaluations/harness.py`
+  builds prompts and writes stub JSONL files; it does not call any model.
+- **No API key handling.** There are no `*_API_KEY` environment variables
+  anywhere in the codebase. Operator cost = their subscription tier.
+- **No billing tables.** Pricing columns in older revisions of this file
+  were removed because pricing is irrelevant when the operator is not
+  paying per token.
+- **The protocol is paste-into-UI.** See
+  [`../tests/_evaluations/operators/manual.md`](../tests/_evaluations/operators/manual.md).
+  The previous `operators/api.md` is kept as deprecated reference only —
+  see its banner.
+
+If you want to run the eval against a model with an API instead of a
+chat subscription, that is fine, but it is **not** the project default
+and it is not supported by the harness out of the box.
+
+## What this file is for
+
+Use this list to:
+
+- know which models the maintainers consider worth evaluating against,
+- cross-reference release dates and the surface (subscription tier) each
+  model is reachable through,
 - plan an operator-driven evaluation sweep (see
-  [../tests/_evaluations/README.md](../tests/_evaluations/README.md)).
+  [`../tests/_evaluations/README.md`](../tests/_evaluations/README.md)).
 
-`prompt-workflow-os` does not endorse any particular vendor. The maintainers
-chose this list based on availability, capability, and the diverse set of
-organizational, pricing, and channel trade-offs they represent. If you evaluate
-against a different model and want your data included in future baseline
+`prompt-workflow-os` does not endorse any particular vendor. The list is
+chosen for capability, surface diversity, and recency. If you evaluate
+against a different model and want the run included in future baseline
 sweeps, open a PR that adds your run under
 `tests/_evaluations/results/<YYYY-Qn>/<model>/` and follow the schema in
-[../tests/_evaluations/schema.py](../tests/_evaluations/schema.py).
+[`../tests/_evaluations/schema.py`](../tests/_evaluations/schema.py).
 
 ## Last verified
 
-2026-09-22. Pricing snapshots are best-effort and may have shifted since.
-Always confirm against the vendor's own pricing page before budgeting a
-sweep.
+2026-09-23. Model availability and subscription surfaces change frequently;
+re-check before any large sweep.
 
 ## OpenAI
 
-### `gpt-6-astra`
+### `gpt-6-sol` (flagship, current recommendation)
 
 | Field | Value |
 | --- | --- |
-| Release date | 2026-09-03 (limited), 2026-09-04 (general) |
-| API model ID | `gpt-6-astra` |
-| Context window | 1,050,000 tokens (922k input, 128k output) |
-| Knowledge cutoff | 2026-04-30 |
-| Reasoning effort | `low, medium, high, xhigh, max` |
-| Pricing | $10 / $50 per million input / output tokens |
-| Cached input | $1.00 per million tokens |
-| Cache write | $12.50 per million tokens |
-| Endpoints | Chat Completions, Responses, Batch |
-| Surfaces | ChatGPT Plus / Pro / Business / Enterprise; OpenAI API; Azure; AWS Bedrock |
-| Source | [openai.com/index/gpt-6-astra](https://openai.com/index/gpt-6-astra/) |
+| Released | 2026-09 (general availability) |
+| Tier | Flagship |
+| Subscription surfaces | ChatGPT Plus / Pro / Business / Enterprise |
+| Replaces | `gpt-5.6-sol` (deprecated 2026-09) |
 
-### `gpt-5.6-sol` (flagship)
+### `gpt-6-luna` (balanced, current recommendation)
 
 | Field | Value |
 | --- | --- |
-| Release date | 2026-07-09 (GA) |
-| API model ID | `gpt-5.6-sol` (also reachable via the bare `gpt-5.6` alias) |
-| Pricing (list) | $5 / $30 per million input / output tokens |
-| Pricing (promo through 2026-11-21) | $4 / $20 |
-| Context window | Up to 1M tokens (Fast mode long-context up to 272K+) |
-| Surfaces | ChatGPT Plus / Pro / Business / Enterprise; Codex; OpenAI API |
-| Source | [openai.com/index/gpt-5-6](https://openai.com/index/gpt-5-6/) |
+| Released | 2026-09 (general availability) |
+| Tier | Balanced / cost-efficient |
+| Subscription surfaces | ChatGPT Plus / Pro / Business / Enterprise |
+| Replaces | `gpt-5.6-luna` and `gpt-5.6-terra` (both deprecated 2026-09) |
 
-### `gpt-5.6-terra` (balanced)
+### Previously recommended (now deprecated)
 
-| Field | Value |
-| --- | --- |
-| Release date | 2026-07-09 (GA) |
-| API model ID | `gpt-5.6-terra` |
-| Pricing | $2.50 / $15 per million input / output tokens (40% cut effective 2026-07-30) |
-| Context window | Up to 1M tokens |
-| Surfaces | ChatGPT Free / Go / Plus / Pro / Business / Enterprise; Codex; OpenAI API |
-| Source | [openai.com/index/gpt-5-6](https://openai.com/index/gpt-5-6/) |
-
-### `gpt-5.6-luna` (cost-efficient)
-
-| Field | Value |
-| --- | --- |
-| Release date | 2026-07-09 (GA) |
-| API model ID | `gpt-5.6-luna` |
-| Pricing | $1 / $6 per million input / output tokens (80% cut effective 2026-07-30) |
-| Context window | Up to 1M tokens |
-| Surfaces | ChatGPT Plus / Pro / Business / Enterprise; Codex; OpenAI API |
-| Source | [openai.com/index/gpt-5-6](https://openai.com/index/gpt-5-6/) |
+The `gpt-5.6-*` family (`sol` / `terra` / `luna`) and `gpt-6-astra` are
+no longer recommended for new eval sweeps as of 2026-09-23. Existing
+result files under `tests/_evaluations/results/` that reference these
+IDs remain valid historical data.
 
 ## Anthropic
 
 Anthropic ships tier-by-tier, never a monolithic "Claude 5". The current
-self-serve line-up as of 2026-09-22:
-
-### `claude-fable-5-1` (Mythos-class flagship)
-
-| Field | Value |
-| --- | --- |
-| Release date | 2026-09-01 |
-| API model ID | `claude-fable-5-1` |
-| Pricing | $10 / $50 per million input / output tokens |
-| Cached input | $0.25 per million tokens (75% cheaper than Fable 5) |
-| Context window | 1M tokens (128k output) |
-| Surfaces | Claude API, Claude in Amazon Bedrock, Claude on Google Cloud, Claude in Microsoft Foundry |
-| Source | [docs.anthropic.com/en/release-notes/api](https://docs.anthropic.com/en/release-notes/api) (entry 2026-09-01) |
-
-The pre-2026-09-01 release was `claude-fable-5`, released 2026-06-09 and
-re-deployed after an export-control pause on 2026-06-30. New work should
-target `claude-fable-5-1`; `claude-fable-5` remains available.
+self-serve line-up as of 2026-09-23:
 
 ### `claude-opus-5` (flagship workhorse)
 
 | Field | Value |
 | --- | --- |
-| Release date | 2026-07-24 |
-| API model ID | `claude-opus-5` |
-| Pricing | $5 / $25 per million input / output tokens |
-| Context window | 1M tokens (128k output) |
-| Surfaces | Claude API, Claude.ai (Pro/Max/Team/Enterprise), Claude Code, Vertex AI, AWS Bedrock, Microsoft Foundry |
-| Source | [anthropic.com/news/claude-opus-5](https://www.anthropic.com/news/claude-opus-5) |
+| Released | 2026-07-24 |
+| Subscription surfaces | Claude Pro / Max / Team / Enterprise, Claude Code |
+| Note | Highest capability per token among subscription tiers. |
 
 ### `claude-sonnet-5` (general-purpose default)
 
 | Field | Value |
 | --- | --- |
-| Release date | 2026-06-30 |
-| API model ID | `claude-sonnet-5` |
-| Pricing | $2 / $10 per million input / output tokens (introductory pricing made permanent 2026-08-10) |
-| Context window | 1M tokens (128k output, raisable to 300k via batch-API beta header) |
-| Surfaces | Claude API, Claude.ai Free/Pro (default), Max/Team/Enterprise, Claude Code, Bedrock, Vertex AI, Microsoft Foundry |
-| Source | [anthropic.com/news/claude-sonnet-5](https://www.anthropic.com/news/claude-sonnet-5) |
+| Released | 2026-06-30 |
+| Subscription surfaces | Claude Free / Pro (default), Max / Team / Enterprise |
+| Note | Default model on Claude Free and Pro. Best availability across tiers. |
+
+### `claude-fable-5-1` (creative / personality-class)
+
+| Field | Value |
+| --- | --- |
+| Released | 2026-09-01 |
+| Subscription surfaces | Claude Max / Team / Enterprise |
+| Note | Best for tasks where voice and personality matter more than raw correctness. |
 
 ## Google
 
@@ -125,50 +115,56 @@ target `claude-fable-5-1`; `claude-fable-5` remains available.
 
 | Field | Value |
 | --- | --- |
-| Release date | 2026-09-02 |
-| API model ID | `gemini-3.8-flash` |
-| Pricing (intro through 2026-12-31) | $0.75 / $3.75 per million input / output tokens |
-| Pricing (standard from 2027-01-01) | $1.50 / $7.50 per million input / output tokens |
-| Context window | 1M tokens (64k output) |
-| Thinking levels | `low, medium, high` (`minimal` is not supported and returns an error) |
-| Surfaces | Gemini API, Google AI Studio, Vertex AI, Google Antigravity (default), Gemini app for AI Pro / Ultra subscribers, Gemini Enterprise |
-| Source | [ai.google.dev/gemini-api/docs/models/gemini-3.8-flash](https://ai.google.dev/gemini-api/docs/models/gemini-3.8-flash) |
+| Released | 2026-09-02 |
+| Subscription surfaces | Gemini app for AI Pro / Ultra, Google AI Studio, Vertex AI, Gemini Enterprise |
+| Note | The only Gemini model currently in the maintainers' eval set. |
 
-A `gemini-3.8-flash-cyber` variant is also available through Google's Fairwind
-Program (trusted defenders only).
+A `gemini-3.8-flash-cyber` variant is available through Google's Fairwind
+Program (trusted defenders only) — out of scope for this list.
 
 ## Notes for maintainers
 
-- **Pricing churns fast.** The Sol 5.6 and Luna 5.6 cuts landed within 30 days
-  of GA; Sonnet 5's introductory price became permanent two months later. Don't
-  treat any number in this file as a quote — re-check before a sweep.
-- **The operator-driven harness does not depend on a particular ID.** Any
-  model that can run the `prompt` strings produced by
+- **Subscription tier coverage is uneven.** Opus 5 requires Max or above
+  on Claude; Sonnet 5 is the default on Free / Pro. Document which tier
+  you actually used when you record a result, so future operators can
+  reproduce your eval.
+- **The operator-driven harness does not depend on a particular ID.**
+  Any model that can run the `prompt` strings produced by
   `tests/_evaluations/harness.py build-prompt` is acceptable. If you swap
-  vendors, record the new `model_id` in the JSONL so the comparison tool can
-  distinguish runs.
-- **Knowledge cutoffs vary.** When a workflow makes a recency-sensitive claim,
-  check whether the model under test has the data. As of 2026-09-22, Astra's
-  cutoff is 2026-04-30, Gemini 3.8 Flash is 2026-03 / 2025-01 (mixed),
-  Claude Opus 5 is 2026-05, GPT-5.6 family has not published a single
-  explicit date.
-- **Frontier capability tiers are uneven.** Astra leads on cyber / agentic
-  benchmarks; Opus 5 leads the Intelligence Index as of mid-September; Gemini
-  3.8 Flash hits the Intelligence vs Cost Pareto at $0.58 per task. None of
-  this matters for `prompt-workflow-os` correctness — only for what to budget
-  when picking a model for a particular evaluation pass.
+  vendors, record the new `model_id` in the JSONL so the comparison tool
+  can distinguish runs.
+- **Knowledge cutoffs vary.** When a workflow makes a recency-sensitive
+  claim, check whether the model under test has the data. As of
+  2026-09-23, no single source publishes a uniform cutoff table; check
+  the vendor's own page.
+- **Frontier capability tiers are uneven.** Within OpenAI, `sol`
+  generally outperforms `luna` on agentic / reasoning benchmarks; within
+  Anthropic, Opus 5 leads Sonnet 5 on most tasks but Sonnet 5 has wider
+  subscription availability. None of this affects `prompt-workflow-os`
+  correctness — only what tier you bring to a particular eval pass.
 
 ## Not in this list
 
-The following are not added because they were not in scope for the initial
-evaluation plan and the maintainers have not baseline-tested them:
+The following are not added because the maintainers do not include them
+in the regular eval set:
 
-- GPT-5, GPT-5.5, GPT-5.5 Pro (older OpenAI tiers).
-- Claude Opus 4.5 / 4.6 / 4.7 / 4.8, Claude Sonnet 4.5 / 4.6, Claude Haiku 4.5,
-  Claude Mythos 5 / 5.1 (project-Glasswing / trusted-access only).
-- Gemini 3.7 Flash, 3.8 Live, 3.8 Live Extended Thinking, Gemini Omni.
-- Grok 4.6, Llama, Mistral, DeepSeek, Qwen, and other non-frontier or
-  non-API-first tiers.
+- Older OpenAI tiers (GPT-5, GPT-5.5, GPT-5.5 Pro).
+- `gpt-5.6-*` and `gpt-6-astra` (deprecated 2026-09; kept as
+  historical reference).
+- Older Anthropic tiers (Claude Opus 4.5 / 4.6 / 4.7 / 4.8, Claude Sonnet
+  4.5 / 4.6, Claude Haiku 4.5, Claude Mythos 5 / 5.1 which is
+  project-Glasswing only).
+- Other Google tiers (Gemini 3.7 Flash, 3.8 Live, 3.8 Live Extended
+  Thinking, Gemini Omni).
+- Grok, Llama, Mistral, DeepSeek, Qwen, and other non-frontier or
+  non-subscription-first tiers.
 
-These models can still run `prompt-workflow-os`; they are just not part of
-the maintainers' regular evaluation set.
+These models can still run `prompt-workflow-os`; they are just not part
+of the maintainers' regular evaluation set.
+
+## See also
+
+- [`../tests/_evaluations/README.md`](../tests/_evaluations/README.md) —
+  harness overview and architecture (subscription-only).
+- [`../tests/_evaluations/operators/manual.md`](../tests/_evaluations/operators/manual.md) —
+  the only operator protocol the project supports.
